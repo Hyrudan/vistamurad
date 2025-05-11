@@ -52,7 +52,7 @@ const Hero: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full opacity-20 blur-2xl"></div>
               <div className="relative">
                 <img
-                  src="https://i.ibb.co/0pdW6ggm/new-logo.png"
+                  src="https://i.ibb.co/qLBs72sk/logoatt.jpg"
                   alt="Logo VISTAMURAD"
                   className="mx-auto w-36 h-36 xs:w-48 xs:h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 object-contain rounded-full"
                 />

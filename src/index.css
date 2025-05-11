@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Paleta base */
+  --primary: #8A2BE2;
+  --secondary: #FF1493;
+  --accent: #00BFFF;
+  --background:var(--gradient-vistamurad);
+  --foreground: #eaeaea;
+
+  /* Tailwind colors */
+  --gradient-vistamurad: linear-gradient(
+    90deg,
+    #581c87 0%,
+    #6d28d9 33%,
+    #7c3aed 66%,
+    #8b5cf6 100%
+  );
+  --color-pink-200: #fbcfe8;
+  --color-pink-300: #f9a8d4;
+  --color-white: #ffffff;
+}
+
+/* Themes */
+[data-theme="dark"] {
+  --background: #18181b;
+  --foreground: #f4f4f5;
+  --accent: #a21caf;
+}
+[data-theme="light"] {
+  --background: #000000;
+  --foreground: #f4f4f5;
+  --accent: #a21caf;
+}
+[data-theme="blue"] {
+  --background: #e0f2fe;
+  --foreground: #0c4a6e;
+  --accent: #38bdf8;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  transition: background 0.3s, color 0.3s;
+}
+
+a {
+  color: var(--accent);
+}
+
+/* Animations */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+@keyframes float {
+  0% { transform: translateY(0px);}
+  50% { transform: translateY(-20px);}
+  100% { transform: translateY(0px);}
+}
+
+/* Gradient Text */
+.gradient-text {
+  @apply text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-blue-400;
+}
+
+/* Swiper Customization */
+.swiper-button-next,
+.swiper-button-prev {
+  color: rgb(0, 119, 247) !important;
+  background: rgba(255, 255, 255, 0.2);
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50%;
+}
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 20px !important;
+}
+.swiper-pagination-bullet {
+  background: rgb(0, 21, 255) !important;
+  opacity: 0.5;
+}
+.swiper-pagination-bullet-active {
+  opacity: 1;
+}

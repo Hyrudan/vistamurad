@@ -18,7 +18,10 @@ const images: string[] = [
   'https://i.ibb.co/FqW3DkzD/muradcartoon.jpg',
   'https://i.ibb.co/BVXgvGTB/cartoon.jpg',
   'https://i.ibb.co/h1xsZwcy/buybuy.jpg',
-  'https://i.ibb.co/6cZvCHMt/didusay.jpg'
+  'https://i.ibb.co/6cZvCHMt/didusay.jpg',
+  'https://ibb.co/cMLTPR9',
+  'https://ibb.co/j98TVG4X',
+  'https://ibb.co/6R82cP8H'
 ];
 
 const ImageCarousel: React.FC = () => {

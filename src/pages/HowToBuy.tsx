@@ -44,14 +44,14 @@ const HowToBuy: React.FC = () => {
         <>
           Connect your wallet to{' '}
           <a
-            href="https://etherfun.app/"
+            href="https://ethervista.app/bsc/token/0x52bf2b94Ab3c33867c4CA5849E529290baaf692c"
             target="_blank"
             rel="noopener noreferrer"
             className="underline text-pink-200 hover:text-white transition"
           >
-          etherfun.app
+          ethervista.app
           </a>
-          , change to BSC mainnet, and swap BNB for VISTAMURAD.
+          , change to BSC mainnet, and swap BNB for VISTAMURAD. HODL and send it to the moon !
         </>
       ),
       icon: <DollarSign className="text-white" size={28} />,
@@ -89,12 +89,12 @@ const HowToBuy: React.FC = () => {
 
         <div className="mt-10 sm:mt-16 text-center">
           <a 
-            href="https://ethervista.app/"
+            href="https://ethervista.app/bsc/token/0x52bf2b94Ab3c33867c4CA5849E529290baaf692c"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
           >
-            Buy VISTAMURAD Now
+            Buy VISTAMURAD Now!
           </a>
         </div>
       </div>

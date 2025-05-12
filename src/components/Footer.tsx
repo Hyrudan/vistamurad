@@ -87,6 +87,7 @@ const Footer: React.FC = () => {
             <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Contract Address</h3>
             <div className="bg-purple-800/50 p-3 sm:p-4 rounded-lg border border-purple-600/30">
               <p className="text-pink-100 break-all text-sm sm:text-base">0x52bf2b94Ab3c33867c4CA5849E529290baaf692c</p>
+              
               <button
                 className="mt-2 text-pink-400 hover:text-pink-300 text-xs sm:text-sm"
                 onClick={() => navigator.clipboard.writeText('0x52bf2b94Ab3c33867c4CA5849E529290baaf692c')}

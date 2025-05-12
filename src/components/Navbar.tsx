@@ -106,7 +106,7 @@ const Navbar: React.FC = () => {
                 <div className="mt-2">
                 </div>
                 <a
-                  href="https://etherfun.app/bsc"
+                  href="https://ethervista.app/bsc/token/0x52bf2b94Ab3c33867c4CA5849E529290baaf692c"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block px-3 py-2 mt-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold rounded-full text-center text-base whitespace-nowrap"

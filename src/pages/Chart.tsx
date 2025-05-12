@@ -37,7 +37,7 @@ const DexScreenerEmbed = styled.div`
 `;
 
 const DEXSCREENER_URL =
-  "https://dexscreener.com/bsc/0x5a091169C79F4b18d21E4901cD7653Ef9C6c1665?embed=1&loadChartSettings=0&trades=0&info=0&chartLeftToolbar=0&chartDefaultOnMobile=1&chartTheme=dark&theme=dark&chartStyle=0&chartType=usd&interval=15";
+  "https://dexscreener.com/bsc/0x5a091169C79F4b18d21E4901cD7653Ef9C6c1665?embed=1&loadChartSettings=0&trades=0&tabs=0&info=0&chartDefaultOnMobile=1&chartTheme=dark&theme=dark&chartStyle=1&chartType=usd&interval=15";
 
 const DexScreenerChart = () => (
   <div id="chart" style={{ width: "100%", maxWidth: 1200, margin: "0 auto" }}>

@@ -23,7 +23,7 @@ const Whitepaper: React.FC = () => (
       <li><strong>Total Supply:</strong> 1,000,000,000 (1 Billion) VMURAD</li>
       <li><strong>Blockchain:</strong> Binance Smart Chain (BEP-20)</li>
       <li><strong>Decimals:</strong> 18</li>
-      <li><strong>Contract Address:</strong> [0x52bf2b94Ab3c33867c4CA5849E529290baaf692c]</li>
+      <li><strong>Contract Address:</strong> 0x52bf2b94Ab3c33867c4CA5849E529290baaf692c</li>
     </ul>
 
     <h2 className="text-lg sm:text-2xl font-semibold mt-6 sm:mt-8 mb-1 sm:mb-2">Transaction Fees</h2>

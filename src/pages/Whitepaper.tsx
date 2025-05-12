@@ -23,7 +23,7 @@ const Whitepaper: React.FC = () => (
       <li><strong>Total Supply:</strong> 1,000,000,000 (1 Billion) VMURAD</li>
       <li><strong>Blockchain:</strong> Binance Smart Chain (BEP-20)</li>
       <li><strong>Decimals:</strong> 18</li>
-      <li><strong>Contract Address:</strong> [in development]</li>
+      <li><strong>Contract Address:</strong> [0x52bf2b94Ab3c33867c4CA5849E529290baaf692c]</li>
     </ul>
 
     <h2 className="text-lg sm:text-2xl font-semibold mt-6 sm:mt-8 mb-1 sm:mb-2">Transaction Fees</h2>
@@ -34,7 +34,7 @@ const Whitepaper: React.FC = () => (
     <h2 className="text-lg sm:text-2xl font-semibold mt-6 sm:mt-8 mb-1 sm:mb-2">Tokenomics</h2>
     <ul className="mb-3 sm:mb-4 list-disc list-inside text-sm sm:text-base">
       <li><strong>Community:</strong> 70% of the total supply is allocated to the community via fair launch.</li>
-      <li><strong>Liquidity:</strong> 25% is reserved for liquidity pools to ensure stable and efficient trading.</li>
+      <li><strong>Liquidity:</strong> 30% is reserved for liquidity pools to ensure stable and efficient trading.</li>
       <li><strong>Team:</strong> In our revolutionary approach to tokenomics, absolutely nothing is allocated to the team, to ensure ongoing commitment and development. This deliberate decision creates several significant advantages for our community: Enhanced Trust and Transparency, True Market-Driven Valuation, Long-Term Commitment Mechanism, Community Empowerment, Sustainable Development Funding. We are open Source.</li>
     </ul>
 

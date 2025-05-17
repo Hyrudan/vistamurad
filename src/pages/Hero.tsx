@@ -1,7 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 
 const Hero: React.FC = () => {
+  const calculateTimeLeft = () => {
+    const targetDate = new Date('2025-08-12T00:00:00Z');
+    const now = new Date();
+    const difference = targetDate.getTime() - now.getTime();
+
+    let timeLeft = {
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+    };
+
+    if (difference > 0) {
+      timeLeft = {
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
+      };
+    }
+
+    return timeLeft;
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section
       id="hero"
@@ -11,21 +45,33 @@ const Hero: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center gap-8">
           <div className="lg:w-1/2 text-center lg:text-left">
             <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-3 sm:mb-4">
-              Welcome to the
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-blue-400">
-                VISTAMURAD
+              $VMURAD AIRDROP
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-pink-500">
+                19 MILLION TOKENS!
               </span>
-              Community
             </h1>
             <p className="text-base xs:text-lg md:text-xl text-pink-100 mb-6 sm:mb-8">
-              The most innovative and fun decentralized meme coin in the crypto universe. Join our vibrant community today!
+              We’re rewarding our most loyal holders with a massive airdrop of <strong>19 million $VMURAD tokens</strong> – that’s <strong>1.9% of total supply!</strong>
+              <br /><br />
+              <strong>Eligibility Rules:</strong><br />
+              1️⃣ Hold at least <strong>30 million $VMURAD</strong><br />
+              2️⃣ <strong>No selling</strong> or wallet transfers from launch to <strong>August 12, 2025</strong><br />
+              3️⃣ Be a true <span className="text-yellow-300 font-bold">Diamond Hand 💎</span>
             </p>
+
+            <div className="text-white font-bold text-xl mb-6">
+              Countdown to Snapshot:
+              <div className="text-3xl mt-2">
+                {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
+              </div>
+            </div>
+
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-3 sm:gap-4">
               <a
                 href="https://ethervista.app/bsc/token/0x52bf2b94Ab3c33867c4CA5849E529290baaf692c"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-5 py-2 sm:px-8 sm:py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-sm sm:text-base"
+                className="px-5 py-2 sm:px-8 sm:py-3 bg-gradient-to-r from-yellow-400 to-pink-600 hover:from-yellow-500 hover:to-pink-700 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-sm sm:text-base"
               >
                 Buy VISTAMURAD
               </a>
@@ -49,7 +95,7 @@ const Hero: React.FC = () => {
           </div>
           <div className="lg:w-1/2 flex justify-center mt-8 lg:mt-0">
             <div className="w-40 h-40 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 relative animate-float">
-              <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full opacity-20 blur-2xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-pink-600 rounded-full opacity-20 blur-2xl"></div>
               <div className="relative">
                 <img
                   src="https://i.ibb.co/qLBs72sk/logoatt.jpg"
@@ -64,9 +110,9 @@ const Hero: React.FC = () => {
         <div className="mt-10 sm:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
           {[
             { label: 'Total Supply', value: '1,000,000,000' },
-            { label: 'Holders', value: '10,000+' },
-            { label: 'Community', value: '25,000+' },
-            { label: 'Launch', value: 'May 11, 2025' },
+            { label: 'Airdrop Amount', value: '19,000,000' },
+            { label: 'Diamond Hands Only', value: 'No Sales Allowed' },
+            { label: 'Snapshot Date', value: 'Aug 12, 2025' },
           ].map((stat, index) => (
             <div
               key={index}

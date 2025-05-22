@@ -52,34 +52,51 @@ const ChartContainer = styled.div`
   margin-bottom: 2rem;
 `;
 
-const DEXSCREENER_URL_BSC =
+const DEXSCREENER_URL_BSC_VMURAD =
   "https://dexscreener.com/bsc/0x5a091169C79F4b18d21E4901cD7653Ef9C6c1665?embed=1&loadChartSettings=0&trades=0&tabs=0&info=0&chartDefaultOnMobile=1&chartTheme=dark&theme=dark&chartStyle=1&chartType=usd&interval=15";
 
-const DEXSCREENER_URL_ETH =
-  "https://dexscreener.com/ethereum/0xfdd05552F1377aA488AFed744c8024358AF02041?embed=1&loadChartSettings=0&trades=0&info=0&chartLeftToolbar=0&chartDefaultOnMobile=1&chartTheme=dark&theme=dark&chartStyle=0&chartType=usd&interval=15";
+const DEXSCREENER_URL_ETH_VISTA =
+  "https://dexscreener.com/ethereum/0xfdd05552F1377aA488AFed744c8024358AF02041?embed=1&loadChartSettings=0&trades=0&tabs=0&info=0&chartLeftToolbar=0&loadChartSettings=0&chartDefaultOnMobile=1&chartTheme=dark&theme=dark&chartStyle=1&chartType=usd&interval=15";
+
+const DEXSCREENER_URL_ETH_BONZI =
+  "https://dexscreener.com/ethereum/0x970cF9b7346FBaea0588F03356A104100EB675E2?embed=1&loadChartSettings=0&trades=0&tabs=0&info=0&chartLeftToolbar=0&loadChartSettings=0&chartDefaultOnMobile=1&chartTheme=dark&theme=dark&chartStyle=1&chartType=usd&interval=15";
+
 
 const DexScreenerChart = () => (
   <div id="chart" style={{ width: "100%", maxWidth: 1200, margin: "0 auto" }}>
-    {/* Primeiro Chart - BSC */}
+    {/* first Chart - BSC */}
     <ChartContainer>
       <ChartTitle>Track $VMURAD LIVE on BSC!</ChartTitle>
       <DexScreenerEmbed>
         <iframe
-          src={DEXSCREENER_URL_BSC}
-          title="DexScreener BSC Chart"
+          src={DEXSCREENER_URL_BSC_VMURAD}
+          title="DexScreener BSC Chart VMURAD"
           allowFullScreen
           loading="lazy"
         />
       </DexScreenerEmbed>
     </ChartContainer>
     
-    {/* Segundo Chart - Ethereum */}
+    {/* Second Chart - Ethereum */}
     <ChartContainer>
       <ChartTitle>Track $VISTA LIVE on Ethereum!</ChartTitle>
       <DexScreenerEmbed>
         <iframe
-          src={DEXSCREENER_URL_ETH}
-          title="DexScreener Ethereum Chart"
+          src={DEXSCREENER_URL_ETH_VISTA}
+          title="DexScreener Ethereum Chart VISTA"
+          allowFullScreen
+          loading="lazy"
+        />
+      </DexScreenerEmbed>
+    </ChartContainer>
+
+  {/* Third Chart - Ethereum */}
+    <ChartContainer>
+      <ChartTitle>Track $BONZI LIVE on Ethereum!</ChartTitle>
+      <DexScreenerEmbed>
+        <iframe
+          src={DEXSCREENER_URL_ETH_BONZI}
+          title="DexScreener Ethereum Chart BONZI"
           allowFullScreen
           loading="lazy"
         />

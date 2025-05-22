@@ -113,7 +113,7 @@ const Footer: React.FC = () => {
           </div>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center">
             <a
-              href="/terms?standalone=true"
+              href="/terms"
               target="_blank"
               rel="noopener noreferrer"
               className="text-pink-100 hover:text-pink-300 text-xs sm:text-sm transition-colors"
@@ -121,7 +121,7 @@ const Footer: React.FC = () => {
               Terms
             </a>
             <a
-              href="/privacy?standalone=true"
+              href="/privacypolicy"
               target="_blank"
               rel="noopener noreferrer"
               className="text-pink-100 hover:text-pink-300 text-xs sm:text-sm transition-colors"

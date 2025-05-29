@@ -1,5 +1,7 @@
+// src/App.tsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 import Navbar from './components/Navbar';
 import Hero from './pages/Hero';
 import ImageCarousel from './components/ImageCarousel';
@@ -15,13 +17,13 @@ import TermsAndConditionsPage from './pages/Terms';
 import PrivacyPolicyPage from './pages/Privacy';
 import './index.css';
 
-// Componente principal que verifica se deve renderizar em modo standalone
+// Main component that checks if it should render in standalone mode
 const AppContent: React.FC = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const isStandalone = searchParams.get('standalone') === 'true';
   
-  // Update page title
+  // Update page title based on current route
   React.useEffect(() => {
     if (location.pathname === '/terms' && isStandalone) {
       document.title = 'VISTAMURAD - Terms and Conditions';
@@ -32,7 +34,7 @@ const AppContent: React.FC = () => {
     }
   }, [location, isStandalone]);
 
-  // Renderizar apenas o componente específico em modo standalone
+  // Render only the specific component in standalone mode
   if (isStandalone) {
     if (location.pathname === '/terms') {
       return <TermsAndConditionsPage />;
@@ -43,7 +45,7 @@ const AppContent: React.FC = () => {
     }
   }
   
-  // Renderização normal do site completo
+  // Normal full site rendering
   return (
     <div className="min-h-screen flex flex-col bg-purple-950">
       <Navbar />
@@ -69,14 +71,16 @@ const AppContent: React.FC = () => {
   );
 };
 
-// Componente App que configura o Router
+// App component that sets up the Router and AuthProvider
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/*" element={<AppContent />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/*" element={<AppContent />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

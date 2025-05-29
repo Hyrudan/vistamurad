@@ -51,7 +51,7 @@ const Hero: React.FC = () => {
             <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-3 sm:mb-4">
               $VMURAD AIRDROP
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-pink-500">
-                20 MILLION TOKENS!
+                20 MILLION TOKENS! Celebrate our listing on PancakeSwap and Ethervista !
               </span>
             </h1>
             <p className="text-base xs:text-lg md:text-xl text-pink-100 mb-6 sm:mb-8">
@@ -77,7 +77,15 @@ const Hero: React.FC = () => {
                 rel="noopener noreferrer"
                 className="px-5 py-2 sm:px-8 sm:py-3 bg-gradient-to-r from-yellow-400 to-pink-600 hover:from-yellow-500 hover:to-pink-700 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-sm sm:text-base"
               >
-                Buy VISTAMURAD
+                Buy on Ethervista!
+              </a>
+              <a
+                href="https://dexscreener.com/bsc/0xc96a13d14c2b2e4d7e13aaaa1da97b4e659ebe30"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-2 sm:px-8 sm:py-3 bg-gradient-to-r from-yellow-400 to-pink-600 hover:from-yellow-500 hover:to-pink-700 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-sm sm:text-base"
+              >
+                Buy on PancakeSwap! 
               </a>
               <a
                 href="https://x.com/vistamurad?t=v1DvOASEPC_9vOzXKN-GGw&s=35"

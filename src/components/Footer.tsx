@@ -121,7 +121,7 @@ const Footer: React.FC = () => {
               Terms
             </a>
             <a
-              href="/privacypolicy"
+              href="/privacy"
               target="_blank"
               rel="noopener noreferrer"
               className="text-pink-100 hover:text-pink-300 text-xs sm:text-sm transition-colors"

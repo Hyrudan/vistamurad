@@ -41,7 +41,7 @@ const FAQ: React.FC = () => {
     },
     {
       question: 'How can I buy VISTAMURAD?',
-      answer: 'You can buy VISTAMURAD by setting up a crypto wallet like MetaMask, purchasing BNB from an exchange, and then swapping BNB for VISTAMURAD on Ethervista. For detailed instructions, check out our "How to Buy" section.',
+      answer: 'You can buy VISTAMURAD by setting up a crypto wallet like MetaMask, purchasing BNB from an exchange, and then swapping BNB for VISTAMURAD on Ethervista or PancakeSwap. For detailed instructions, check out our "How to Buy" section.',
     },
     {
       question: 'What makes VISTAMURAD different from other meme coins?',
@@ -53,7 +53,7 @@ const FAQ: React.FC = () => {
     },
     {
       question: 'What are the tokenomics of VISTAMURAD?',
-      answer: 'VISTAMURAD has a total supply of 1 billion tokens. 70% is allocated to the community, 30% to liquidity pools, and 0% to the team. There are small buy and sell taxes (2% buy and 2% sell). Around 15$',
+      answer: 'VISTAMURAD has a total supply of 1 billion tokens. 70% is allocated to the community, 30% to liquidity pools, and 0% to the team. There are small buy and sell taxes (2% buy and 2% sell). Around 11$ for Ethervista, or 0.02 for PancakeSwap, choose wisely.'
     },
     {
       question: 'How can I participate in the VISTAMURAD community?',

@@ -73,20 +73,15 @@ a {
 /* Swiper Customization */
 .swiper-button-next,
 .swiper-button-prev {
-  color: rgb(0, 119, 247) !important;
-  background: rgba(255, 255, 255, 0.2);
-  width: 40px !important;
-  height: 40px !important;
-  border-radius: 50%;
+  display: none !important;
 }
 .swiper-button-next:after,
 .swiper-button-prev:after {
-  font-size: 20px !important;
+  display: none !important;
 }
-.swiper-pagination-bullet {
-  background: rgb(0, 21, 255) !important;
-  opacity: 0.5;
+.swiper-pagination {
+  display: none !important;
 }
-.swiper-pagination-bullet-active {
-  opacity: 1;
+.swiper-pagination {
+  display: none !important;
 }

@@ -1,55 +1,45 @@
 import React from 'react';
+import BackToHomeButton from '../components/BackToHomeButton';
 
-const PrivacyPolicy: React.FC = () => {
+const PrivacyPolicyPage: React.FC = () => {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-700px mx-auto bg-purple-800/50 backdrop-blur-sm border border-purple-600/30 rounded-2xl p-6 sm:p-8">
-        <h1 className="text-center text-2xl sm:text-3xl font-bold text-white mb-6">Privacy Policy</h1>
-        <p className="text-pink-100 mb-6">
-          This Privacy Policy describes how VISTAMURAD ("we", "us", or "our") collects, uses, and protects your information when you use our website and services.
-        </p>
-
-        <h2 className="text-xl font-bold text-pink-400 mt-8 mb-3">1. Information We Collect</h2>
-        <p className="text-pink-100 mb-4">
-          We do not collect personal information such as your name, address, or contact details unless you voluntarily provide them (for example, by emailing us). Our website may collect non-personal data such as browser type, operating system, and general usage statistics to improve our services.
-        </p>
-
-        <h2 className="text-xl font-bold text-pink-400 mt-8 mb-3">2. Use of Information</h2>
-        <p className="text-pink-100 mb-4">
-          Any information collected is used solely to enhance your experience on our website, respond to inquiries, and improve our services. We do not sell or share your personal information with third parties.
-        </p>
-
-        <h2 className="text-xl font-bold text-pink-400 mt-8 mb-3">3. Cookies</h2>
-        <p className="text-pink-100 mb-4">
-          Our website may use cookies or similar technologies to enhance user experience. You can choose to disable cookies in your browser settings, but some features of the site may not function properly.
-        </p>
-
-        <h2 className="text-xl font-bold text-pink-400 mt-8 mb-3">4. Third-Party Links</h2>
-        <p className="text-pink-100 mb-4">
-          Our website may contain links to third-party websites. We are not responsible for the privacy practices or content of those sites. Please review their privacy policies before providing any information.
-        </p>
-
-        <h2 className="text-xl font-bold text-pink-400 mt-8 mb-3">5. Security</h2>
-        <p className="text-pink-100 mb-4">
-          We take reasonable measures to protect your information, but please be aware that no method of transmission over the internet or electronic storage is 100% secure.
-        </p>
-
-        <h2 className="text-xl font-bold text-pink-400 mt-8 mb-3">6. Changes to This Policy</h2>
-        <p className="text-pink-100 mb-4">
-          We may update this Privacy Policy from time to time. Any changes will be posted on this page, and your continued use of the website constitutes acceptance of those changes.
-        </p>
-
-        <h2 className="text-xl font-bold text-pink-400 mt-8 mb-3">7. Contact</h2>
-        <p className="text-pink-100 mb-4">
-          If you have any questions about this Privacy Policy, please contact us at <a href="https://discord.gg/HNWq88Dp" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:text-pink-300">Discord</a>.
-        </p>
-
-        <div className="text-center text-pink-400 mt-8 text-sm">
-          Last updated: May 2025
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-purple-800 to-pink-900 py-16 px-4">
+      <div className="max-w-2xl w-full bg-white/10 backdrop-blur-md rounded-3xl shadow-xl p-8 border border-white/20">
+        <BackToHomeButton />
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-4 text-center">
+          Privacy Policy
+        </h1>
+        <div className="mb-8 text-pink-100 text-base space-y-4">
+          <p>
+            Your privacy is important to <span className="text-yellow-300 font-bold">VISTAMURAD</span>. This policy explains how we collect, use, and protect your information.
+          </p>
+          <ul className="list-disc list-inside space-y-2">
+            <li>
+              <span className="font-bold text-yellow-300">Information Collection:</span> We may collect basic information such as your email address and wallet address when you interact with our platform or participate in promotions.
+            </li>
+            <li>
+              <span className="font-bold text-yellow-300">Use of Information:</span> Your information is used solely for communication, eligibility verification, and prize distribution related to our ecosystem.
+            </li>
+            <li>
+              <span className="font-bold text-yellow-300">No Sharing:</span> We do not sell or share your personal information with third parties except as required by law.
+            </li>
+            <li>
+              <span className="font-bold text-yellow-300">Security:</span> We implement reasonable security measures to protect your data, but cannot guarantee absolute security.
+            </li>
+            <li>
+              <span className="font-bold text-yellow-300">Cookies:</span> Our site may use cookies to enhance user experience.
+            </li>
+            <li>
+              <span className="font-bold text-yellow-300">Policy Updates:</span> We may update this policy from time to time. Continued use of our site constitutes acceptance of the new policy.
+            </li>
+          </ul>
+          <p>
+            For questions or concerns, please contact us via our official channels.
+          </p>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default PrivacyPolicy;
+export default PrivacyPolicyPage;

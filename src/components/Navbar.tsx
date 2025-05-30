@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, Copy, User, LogOut } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import Logo from './Logo';
+import { useNavigate, useLocation } from 'react-router-dom'; // Import hooks
 
 const CONTRACT_ADDRESS = '0x52bf2b94Ab3c33867c4CA5849E529290baaf692c';
 
@@ -13,8 +14,11 @@ const Navbar: React.FC = () => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   const [tempUsername, setTempUsername] = useState<string>('');
 
-  // Use auth context instead of local state
   const { currentUser, isLoggedIn, login, logout } = useAuth();
+
+  // React Router hooks
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // Close dropdown when clicking outside
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -48,7 +52,6 @@ const Navbar: React.FC = () => {
     }
   };
 
-  // Updated login function using context
   const handleAnonymousLogin = (): void => {
     if (tempUsername.trim()) {
       login(tempUsername.trim());
@@ -57,7 +60,6 @@ const Navbar: React.FC = () => {
     }
   };
 
-  // Updated logout function using context
   const handleLogout = (): void => {
     logout();
     setIsOpen(false);
@@ -82,6 +84,30 @@ const Navbar: React.FC = () => {
     { name: 'Community', href: '#community' },
     { name: 'FAQ', href: '#faq' },
   ];
+
+  // Custom handler for navigation links
+  const handleNavClick = (href: string) => {
+    // Only apply special behavior on /terms or /privacy
+    if (['/terms', '/privacy'].includes(location.pathname)) {
+      // Go to home page
+      navigate('/');
+      // After navigation, scroll to the section
+      setTimeout(() => {
+        const id = href.replace('#', '');
+        if (id) {
+          const el = document.getElementById(id);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      // If already on home, just scroll
+      const id = href.replace('#', '');
+      if (id) {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   // Login Modal Component
   const LoginModal: React.FC = () => (
@@ -175,13 +201,16 @@ const Navbar: React.FC = () => {
                       </button>
                     )}
                   </div>
-
                   {navLinks.map((link) => (
                     <a
                       key={link.name}
                       href={link.href}
                       className="px-3 py-2 rounded-lg text-white hover:text-pink-300 font-medium text-base transition-colors"
-                      onClick={() => setIsOpen(false)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setIsOpen(false);
+                        handleNavClick(link.href);
+                      }}
                     >
                       {link.name}
                     </a>
@@ -223,7 +252,6 @@ const Navbar: React.FC = () => {
                 .animate-fade-in {
                   animation: fade-in 0.18s cubic-bezier(.4,0,.2,1);
                 }
-                /* Scrollbar customization for Tailwind */
                 .scrollbar-thin { scrollbar-width: thin; }
                 .scrollbar-thumb-pink-400::-webkit-scrollbar-thumb { background-color: #f472b6; }
               `}</style>
@@ -258,6 +286,10 @@ const Navbar: React.FC = () => {
                   key={link.name}
                   href={link.href}
                   className="text-white hover:text-pink-300 font-medium transition-colors text-base"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(link.href);
+                  }}
                 >
                   {link.name}
                 </a>
@@ -289,7 +321,6 @@ const Navbar: React.FC = () => {
           )}
         </div>
       </nav>
-      
       <LoginModal />
     </>
   );

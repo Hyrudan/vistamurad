@@ -1,18 +1,29 @@
 // Hero.tsx
 import React, { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
-// Import Swiper React components and styles
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Link } from 'react-router-dom'; // For navigation to Contest page
+import { Link } from 'react-router-dom';
 
+// MEXC web and deep link URLs
 const MEXC_DEX_LINK =
   'https://www.mexc.us/pt-BR/dex/trade?pair_ca=0xc96a13d14c2B2E4D7e13AAAA1DA97b4E659Ebe30&chain_id=56&token_ca=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c&from=search';
+const MEXC_DEX_DEEP_LINK =
+  'mexc://dex/trade?pair_ca=0xc96a13d14c2B2E4D7e13AAAA1DA97b4E659Ebe30&chain_id=56&token_ca=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c&from=search';
+
+// Tries to open the MEXC app via deep link, falls back to web after 1.5s
+function openMexcLink(e?: React.MouseEvent) {
+  if (e) e.preventDefault();
+  window.location.href = MEXC_DEX_DEEP_LINK;
+  setTimeout(() => {
+    window.open(MEXC_DEX_LINK, '_blank');
+  }, 1500);
+}
 
 const Hero: React.FC = () => {
-  // Function to calculate the time left until the target date
+  // Calculates time left for the countdown
   const calculateTimeLeft = () => {
     const targetDate = new Date('2025-08-12T00:00:00Z');
     const now = new Date();
@@ -37,16 +48,15 @@ const Hero: React.FC = () => {
     return timeLeft;
   };
 
-  // State to store the countdown timer values
+  // State for countdown timer
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
-  // Effect to update the timer every second
+  // Updates countdown every second
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
 
-    // Clean up interval on component unmount
     return () => clearInterval(timer);
   }, []);
 
@@ -83,7 +93,7 @@ const Hero: React.FC = () => {
         <>
           The $VMURAD community is launching the most creative contest of the season: transform memes and images related to the $VMURAD universe into pixelated versions and compete for <strong>5 MILLION tokens!</strong> Join, invite friends, and show your pixelated vision of the wildest ecosystem on Etherfun.
           <br /><br />
-          {/* Button to Contest page */}
+          {/* Contest page button */}
           <Link
             to="/contest"
             className="inline-block mt-4 px-6 py-2 bg-gradient-to-r from-yellow-400 to-pink-600 hover:from-yellow-500 hover:to-pink-700 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-base shadow-lg"
@@ -94,7 +104,7 @@ const Hero: React.FC = () => {
       ),
       showCountdown: false,
     },
-    // NEW MEXC DEX+ FOMO SLIDE
+    // MEXC DEX+ FOMO SLIDE
     {
       title: (
         <>
@@ -112,15 +122,13 @@ const Hero: React.FC = () => {
           <br /><br />
           <span className="text-white font-bold">Be part of the first wave. Buy now and ride the momentum!</span>
           <br /><br />
-          {/* BUY NOW Button styled with MEXC colors */}
-          <a
-            href={MEXC_DEX_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
+          {/* BUY NOW Button with deep link fallback */}
+          <button
+            onClick={openMexcLink}
             className="inline-block mt-4 px-8 py-3 bg-gradient-to-r from-green-500 via-teal-400 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-extrabold rounded-full transition-all duration-300 transform hover:scale-105 text-base shadow-lg border-2 border-white/20"
           >
             BUY NOW on MEXC DEX+!
-          </a>
+          </button>
         </>
       ),
       showCountdown: false,
@@ -147,27 +155,15 @@ const Hero: React.FC = () => {
               {slides.map((slide, idx) => (
                 <SwiperSlide key={idx}>
                   <div>
-                    {/* 
-                      Responsive heading:
-                      - text-xl for mobile (large for mobile, but not too big)
-                      - xs:text-2xl, sm:text-3xl, md:text-5xl, lg:text-6xl for larger screens
-                      - leading-snug for mobile to avoid text cut-off
-                      - mb-2 for mobile, larger margin for bigger screens
-                    */}
+                    {/* Responsive heading */}
                     <h1 className="text-xl xs:text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-snug xs:leading-tight mb-2 sm:mb-4 break-words">
                       {slide.title}
                     </h1>
-                    {/* 
-                      Responsive paragraph:
-                      - text-sm for mobile, scaling up for larger screens
-                      - text-pink-100 for good contrast
-                      - mb-4 for mobile, larger margin for bigger screens
-                      - break-words ensures long words don't overflow
-                    */}
+                    {/* Responsive paragraph */}
                     <p className="text-sm xs:text-base sm:text-lg md:text-xl text-pink-100 mb-4 sm:mb-8 break-words">
                       {slide.description}
                     </p>
-                    {/* Countdown block: responsive and clear */}
+                    {/* Countdown block */}
                     {slide.showCountdown && (
                       <div className="text-white font-bold text-base xs:text-lg sm:text-xl mb-5">
                         Countdown to Snapshot:
@@ -180,16 +176,16 @@ const Hero: React.FC = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
-            {/* Action buttons: stack vertically on mobile, horizontally on larger screens */}
+            {/* Action buttons: vertical on mobile, horizontal on desktop */}
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-2 sm:gap-4 w-full">
-              <a
-                href={MEXC_DEX_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
+              {/* Buy on MEXC button with deep link fallback */}
+              <button
+                onClick={openMexcLink}
                 className="px-4 py-2 sm:px-8 sm:py-3 bg-gradient-to-r from-blue-400 to-white-600 hover:from-yellow-500 hover:to-pink-700 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-xs xs:text-sm sm:text-base"
               >
                 Buy on MEXC!
-              </a>
+              </button>
+              {/* Other action buttons remain as links */}
               <a
                 href="https://ethervista.app/bsc/token/0x52bf2b94Ab3c33867c4CA5849E529290baaf692c"
                 target="_blank"
@@ -238,7 +234,7 @@ const Hero: React.FC = () => {
             </div>
           </div>
         </div>
-        {/* Stats grid: responsive, readable on mobile */}
+        {/* Stats grid */}
         <div className="mt-8 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-6 text-center">
           {[
             { label: 'Total Supply', value: '1,000,000,000' },

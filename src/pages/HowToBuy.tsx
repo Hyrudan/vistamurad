@@ -1,6 +1,7 @@
 import React from 'react';
 import { Wallet, ArrowRight, DollarSign, Share2 } from 'lucide-react';
 
+// Step card component for each buying step
 const Step: React.FC<{
   number: number;
   title: string;
@@ -9,10 +10,11 @@ const Step: React.FC<{
 }> = ({ number, title, description, icon }) => {
   return (
     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 relative">
+      {/* Step icon */}
       <div className="flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center z-10">
         {icon}
       </div>
-      {/* Linha vertical só no desktop */}
+      {/* Vertical dashed line for desktop, except on last step */}
       {number < 4 && (
         <div className="absolute left-6 top-12 sm:left-8 sm:top-16 h-14 sm:h-20 border-l-2 border-dashed border-pink-400/50 hidden sm:block"></div>
       )}
@@ -27,6 +29,7 @@ const Step: React.FC<{
 };
 
 const HowToBuy: React.FC = () => {
+  // Steps data
   const steps = [
     {
       title: 'Create a Wallet',
@@ -49,17 +52,18 @@ const HowToBuy: React.FC = () => {
             rel="noopener noreferrer"
             className="underline text-pink-200 hover:text-white transition"
           >
-          ethervista.app  |
+            ethervista.app
           </a>
+          {' | '}
           <a
             href="https://pancakeswap.finance/swap?outputCurrency=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c"
             target="_blank"
             rel="noopener noreferrer"
             className="underline text-pink-200 hover:text-white transition"
           >
-          | PancakeSwap 
+            PancakeSwap
           </a>
-          , change to BSC mainnet, and swap BNB for VISTAMURAD. HODL and send it to the moon !
+          , change to BSC mainnet, and swap BNB for VISTAMURAD. HODL and send it to the moon!
         </>
       ),
       icon: <DollarSign className="text-white" size={28} />,
@@ -72,7 +76,8 @@ const HowToBuy: React.FC = () => {
   ];
 
   return (
-    <section id="how-to-buy" className="py-12 sm:py-20 bg-gradient-to-br from-pink-900 to-purple-800">
+    // Section background is transparent (no bg-* classes)
+    <section id="how-to-buy" className="py-12 sm:py-20">
       <div className="container mx-auto px-3 sm:px-6 lg:px-8">
         <div className="text-center mb-8 sm:mb-16">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">How to Buy VISTAMURAD</h2>
@@ -81,6 +86,7 @@ const HowToBuy: React.FC = () => {
           </p>
         </div>
 
+        {/* Steps list */}
         <div className="max-w-xl sm:max-w-3xl mx-auto">
           <div className="space-y-8 sm:space-y-12 md:space-y-16">
             {steps.map((step, index) => (
@@ -95,6 +101,7 @@ const HowToBuy: React.FC = () => {
           </div>
         </div>
 
+        {/* Call to action button */}
         <div className="mt-10 sm:mt-16 text-center">
           <a 
             href="https://dexscreener.com/bsc/0xc96a13d14c2b2e4d7e13aaaa1da97b4e659ebe30"

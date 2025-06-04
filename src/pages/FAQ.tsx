@@ -66,7 +66,7 @@ const FAQ: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-10 sm:py-20 bg-gradient-to-br from-purple-800 to-purple-900">
+    <section id="faq" className="py-10 sm:py-20">
       <div className="container mx-auto px-2 sm:px-4 lg:px-8">
         <div className="text-center mb-8 sm:mb-16">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">Frequently Asked Questions</h2>

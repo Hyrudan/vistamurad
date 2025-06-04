@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
+// Card component for each social platform
 const SocialCard: React.FC<{
   icon: React.ReactNode;
   title: string;
@@ -30,6 +32,7 @@ const SocialCard: React.FC<{
 };
 
 const Community: React.FC = () => {
+  // Social platforms data
   const socials = [
     {
       icon: (
@@ -76,7 +79,8 @@ const Community: React.FC = () => {
   ];
 
   return (
-    <section id="community" className="py-12 sm:py-20 bg-gradient-to-br from-purple-900 via-purple-800 to-pink-900">
+    // Section background is transparent (no bg-* classes)
+    <section id="community" className="py-12 sm:py-20">
       <div className="container mx-auto px-3 sm:px-4 lg:px-8">
         <div className="text-center mb-10 sm:mb-16">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">Join Our Community</h2>
@@ -85,7 +89,7 @@ const Community: React.FC = () => {
           </p>
         </div>
 
-        {/* Cards Centralization - Adjusted for 3 cards */}
+        {/* Social cards grid */}
         <div className="flex flex-wrap justify-center gap-5 sm:gap-6">
           {socials.map((social, index) => (
             <SocialCard
@@ -100,17 +104,19 @@ const Community: React.FC = () => {
           ))}
         </div>
 
+        {/* Community-driven development call-to-action */}
         <div className="mt-10 sm:mt-16 p-5 sm:p-8 bg-gradient-to-r from-pink-500/20 to-purple-600/20 rounded-2xl sm:rounded-3xl border border-white/10 text-center">
           <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">Community-Driven Development</h3>
           <p className="text-pink-100 max-w-xl sm:max-w-3xl mx-auto mb-6 sm:mb-8 text-sm sm:text-base">
             VISTAMURAD is built by the community, for the community. We believe in decentralized governance where every holder has a voice in shaping the future of our project.
           </p>
-          <a 
-            href="#governance" 
+          {/* Use Link for client-side navigation */}
+          <Link
+            to="/governance"
             className="inline-block px-6 py-2 sm:px-8 sm:py-3 bg-white/10 hover:bg-pink-500/40 text-white font-bold rounded-full transition-all duration-300 border border-white/30 hover:border-pink-400/50 text-sm sm:text-base"
           >
             Learn About Governance
-          </a>
+          </Link>
         </div>
       </div>
     </section>

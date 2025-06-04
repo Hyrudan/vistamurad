@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer id="contact" className="bg-purple-900 pt-10 pb-6 sm:pt-16 sm:pb-8">
+    <footer id="contact" className=" pt-10 pb-6 sm:pt-16 sm:pb-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
           {/* Logo and Social */}
@@ -105,7 +105,16 @@ const Footer: React.FC = () => {
         <div className="border-t border-purple-800 mt-10 sm:mt-12 pt-5 sm:pt-6 flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
           <div className="flex flex-col items-center md:items-start gap-1 md:gap-0">
             <p className="text-pink-100 text-xs sm:text-sm">
-              © {new Date().getFullYear()} VISTAMURAD. All rights reserved.
+              © {new Date().getFullYear()} VISTAMURAD. All rights reserved. This token is a meme inspired by the iconic Murad, but it has no official connection to him and is not endorsed by Murad in any way.
+VMurad is a meme coin with no intrinsic value.
+Only invest what you can afford to lose.
+Claims of wealth and bold statements are not financial advice.
+Do your own research (DYOR).
+              Este token é uma meme coin inspirada no icônico Murad, mas não possui qualquer vínculo oficial com ele, tampouco é endossada por Murad.
+VMurad é uma moeda meme sem valor intrínseco.
+Invista apenas o que você pode se dar ao luxo de perder.
+Discursos de riqueza e afirmações ousadas não são conselhos financeiros.
+Faça sempre sua própria pesquisa (DYOR).
             </p>
             <p className="text-pink-300 text-xs sm:text-sm">
               Powered by Ethervista.

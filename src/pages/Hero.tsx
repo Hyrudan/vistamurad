@@ -1,4 +1,3 @@
-// Hero.tsx
 import React, { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -9,11 +8,11 @@ import { Link } from 'react-router-dom';
 
 // MEXC web and deep link URLs
 const MEXC_DEX_LINK =
-  'https://www.mexc.us/pt-BR/dex/trade?pair_ca=0xc96a13d14c2B2E4D7e13AAAA1DA97b4E659Ebe30&chain_id=56&token_ca=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c&from=search';
+  'https://www.mexc.com/pt-BR/dex/trade?pair_ca=0xc96a13d14c2B2E4D7e13AAAA1DA97b4E659Ebe30&chain_id=56&token_ca=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c&from=search';
 const MEXC_DEX_DEEP_LINK =
-  'mexc://dex/trade?pair_ca=0xc96a13d14c2B2E4D7e13AAAA1DA97b4E659Ebe30&chain_id=56&token_ca=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c&from=search';
+  'https://www.mexc.com/pt-BR/dex/trade?pair_ca=0xc96a13d14c2B2E4D7e13AAAA1DA97b4E659Ebe30&chain_id=56&token_ca=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c&from=search';
 
-// Tries to open the MEXC app via deep link, falls back to web after 1.5s
+// Opens MEXC app via deep link, falls back to web after 1.5s
 function openMexcLink(e?: React.MouseEvent) {
   if (e) e.preventDefault();
   window.location.href = MEXC_DEX_DEEP_LINK;
@@ -96,7 +95,7 @@ const Hero: React.FC = () => {
           {/* Contest page button */}
           <Link
             to="/contest"
-            className="inline-block mt-4 px-6 py-2 bg-gradient-to-r from-yellow-400 to-pink-600 hover:from-yellow-500 hover:to-pink-700 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-base shadow-lg"
+            className="inline-block mt-4 px-6 py-2 bg-pink-500/40 hover:bg-purple-500/40 text-white font-bold rounded-full transition-all duration-300 border border-white/30 hover:border-pink-400/50 text-base"
           >
             PARTICIPATION RULES <ArrowRight size={16} className="inline ml-1" />
           </Link>
@@ -125,7 +124,7 @@ const Hero: React.FC = () => {
           {/* BUY NOW Button with deep link fallback */}
           <button
             onClick={openMexcLink}
-            className="inline-block mt-4 px-8 py-3 bg-gradient-to-r from-green-500 via-teal-400 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-extrabold rounded-full transition-all duration-300 transform hover:scale-105 text-base shadow-lg border-2 border-white/20"
+            className="inline-block mt-4 px-8 py-3 bg-pink-500/40 hover:bg-purple-500/40 text-white font-extrabold rounded-full transition-all duration-300 transform hover:scale-105 text-base border border-white/30 hover:border-pink-400/50"
           >
             BUY NOW on MEXC DEX+!
           </button>
@@ -138,7 +137,8 @@ const Hero: React.FC = () => {
   return (
     <section
       id="hero"
-      className="pt-14 pb-8 sm:pt-20 sm:pb-14 md:pt-32 md:pb-24 bg-gradient-to-br from-purple-900 via-purple-800 to-pink-900"
+      className="pt-14 pb-8 sm:pt-20 sm:pb-14 md:pt-32 md:pb-24"
+      // No background color here; the section is transparent
     >
       <div className="container mx-auto px-2 sm:px-4 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-8">
@@ -181,32 +181,41 @@ const Hero: React.FC = () => {
               {/* Buy on MEXC button with deep link fallback */}
               <button
                 onClick={openMexcLink}
-                className="px-4 py-2 sm:px-8 sm:py-3 bg-gradient-to-r from-blue-400 to-white-600 hover:from-yellow-500 hover:to-pink-700 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-xs xs:text-sm sm:text-base"
+                className="px-4 py-2 sm:px-8 sm:py-3 bg-pink-500/40 hover:bg-purple-500/40 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-xs xs:text-sm sm:text-base border border-white/30 hover:border-pink-400/50"
               >
                 Buy on MEXC!
               </button>
-              {/* Other action buttons remain as links */}
+              {/* Other buy buttons */}
               <a
                 href="https://ethervista.app/bsc/token/0x52bf2b94Ab3c33867c4CA5849E529290baaf692c"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 sm:px-8 sm:py-3 bg-gradient-to-r from-yellow-400 to-green-600 hover:from-yellow-500 hover:to-pink-700 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-xs xs:text-sm sm:text-base"
+                className="px-4 py-2 sm:px-8 sm:py-3 bg-pink-500/40 hover:bg-purple-500/40 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-xs xs:text-sm sm:text-base border border-white/30 hover:border-pink-400/50"
               >
                 Buy on Ethervista!
               </a>
               <a
-                href="https://dexscreener.com/bsc/0xc96a13d14c2b2e4d7e13aaaa1da97b4e659ebe30"
+                href="https://pancakeswap.finance/swap?outputCurrency=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 sm:px-8 sm:py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-pink-700 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-xs xs:text-sm sm:text-base"
+                className="px-4 py-2 sm:px-8 sm:py-3 bg-pink-500/40 hover:bg-purple-500/40 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-xs xs:text-sm sm:text-base border border-white/30 hover:border-pink-400/50"
               >
                 Buy on PancakeSwap!
               </a>
               <a
+                href="https://compranopix.com/index.php?acao=buydex&token=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 sm:px-8 sm:py-3 bg-pink-500/40 hover:bg-purple-500/40 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-xs xs:text-sm sm:text-base border border-white/30 hover:border-pink-400/50"
+              >
+                Buy with PIX!
+              </a>
+              {/* Social buttons */}
+              <a
                 href="https://x.com/vistamurad?t=v1DvOASEPC_9vOzXKN-GGw&s=35"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 sm:px-8 sm:py-3 bg-pink-500/40 hover:bg-purple-500/40 text-white font-bold rounded-full transition-all duration-300 border border-white/30 flex items-center justify-center gap-2 text-center text-xs xs:text-sm sm:text-base"
+                className="px-4 py-2 sm:px-8 sm:py-3 bg-pink-500/40 hover:bg-purple-500/40 text-white font-bold rounded-full transition-all duration-300 border border-white/30 flex items-center justify-center gap-2 text-center text-xs xs:text-sm sm:text-base hover:border-pink-400/50"
               >
                 Join on X <ArrowRight size={16} />
               </a>
@@ -214,7 +223,7 @@ const Hero: React.FC = () => {
                 href="https://t.me/+lov0IxvuySphMzgx"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 sm:px-8 sm:py-3 bg-pink-500/40 hover:bg-purple-500/40 text-white font-bold rounded-full transition-all duration-300 border border-white/30 flex items-center justify-center gap-2 text-center text-xs xs:text-sm sm:text-base"
+                className="px-4 py-2 sm:px-8 sm:py-3 bg-pink-500/40 hover:bg-purple-500/40 text-white font-bold rounded-full transition-all duration-300 border border-white/30 flex items-center justify-center gap-2 text-center text-xs xs:text-sm sm:text-base hover:border-pink-400/50"
               >
                 Join Telegram <ArrowRight size={16} />
               </a>

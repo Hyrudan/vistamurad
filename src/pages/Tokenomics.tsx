@@ -1,6 +1,7 @@
 import React from 'react';
 import { PieChart, Coins, Rocket } from 'lucide-react';
 
+// Card component for each tokenomics item
 const TokenomicsCard: React.FC<{
   icon: React.ReactNode;
   title: string;
@@ -24,6 +25,7 @@ const TokenomicsCard: React.FC<{
 };
 
 const Tokenomics: React.FC = () => {
+  // Data for tokenomics cards
   const tokenomicsData = [
     {
       icon: <PieChart className="text-white" size={22} />,
@@ -46,7 +48,8 @@ const Tokenomics: React.FC = () => {
   ];
 
   return (
-    <section id="tokenomics" className="py-10 sm:py-20 bg-gradient-to-br from-purple-800 to-purple-900">
+    // Section background is transparent (no bg-* classes)
+    <section id="tokenomics" className="py-10 sm:py-20">
       <div className="container mx-auto px-2 sm:px-4 lg:px-8">
         <div className="text-center mb-8 sm:mb-16">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">Tokenomics</h2>
@@ -55,7 +58,7 @@ const Tokenomics: React.FC = () => {
           </p>
         </div>
 
-        {/* Grid centralizado e responsivo */}
+        {/* Responsive and centered grid for tokenomics cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 justify-items-center">
           {tokenomicsData.map((item, index) => (
             <TokenomicsCard
@@ -68,6 +71,7 @@ const Tokenomics: React.FC = () => {
           ))}
         </div>
 
+        {/* Token details section */}
         <div className="mt-10 sm:mt-16 bg-purple-800/30 backdrop-blur-md rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-purple-600/30">
           <h3 className="text-lg sm:text-2xl font-bold text-white mb-4 sm:mb-6 text-center">Token Details</h3>
           <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 justify-items-center">

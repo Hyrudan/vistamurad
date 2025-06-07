@@ -3,7 +3,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 // Import all your page components
-import Hero from '../pages/Hero';
+import Hero from '../components/Hero/Hero';
 import ImageCarousel from '../components/ImageCarousel';
 import Tokenomics from '../pages/Tokenomics';
 import HowToBuy from '../pages/HowToBuy';

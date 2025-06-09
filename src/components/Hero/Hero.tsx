@@ -1,204 +1,203 @@
+// src/components/Hero/Hero.tsx
+
 import React, { useState, useEffect } from 'react';
+import BuyOnEthervista from './BuyOnEthervista';
+import HeroSlides from './HeroSlides';
+import HeroStats from './HeroStats';
+import WalletModalMobile from './WalletModalMobile';
 
-// Hook to detect if the device is mobile based on window width
-function useIsMobile(breakpoint: number = 768): boolean {
-  const [isMobile, setIsMobile] = useState<boolean>(
-    typeof window !== 'undefined' ? window.innerWidth < breakpoint : false
-  );
-
-  useEffect(() => {
-    function handleResize() {
-      setIsMobile(window.innerWidth < breakpoint);
-    }
-    window.addEventListener('resize', handleResize);
-    handleResize();
-    return () => window.removeEventListener('resize', handleResize);
-  }, [breakpoint]);
-
-  return isMobile;
+// Helper function to calculate the remaining time until a given snapshot date
+function getTimeLeft(snapshotDate: string) {
+  const now = new Date();
+  const end = new Date(snapshotDate);
+  const totalSeconds = Math.max(0, Math.floor((end.getTime() - now.getTime()) / 1000));
+  const days = Math.floor(totalSeconds / (3600 * 24));
+  const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  return { days, hours, minutes, seconds };
 }
 
-// Plain and encoded dApp URLs
-const DAPP_URL_PLAIN =
-  'https://ethervista.app/bsc/token/0x52bf2b94Ab3c33867c4CA5849E529290baaf692c';
-const DAPP_URL_ENCODED = encodeURIComponent(DAPP_URL_PLAIN);
+// Snapshot date for the airdrop countdown
+const SNAPSHOT_DATE = '2025-08-12T00:00:00Z';
 
-const WALLETS = [
+// Array of slides for the HeroSlides carousel
+// Each slide has a title, description, and a flag for showing the countdown
+const slides = [
   {
-    name: 'MetaMask',
-    icon: '/logosvg/metamask-seeklogo.svg',
-    // MetaMask expects the plain URL, not encoded
-    deeplink: `https://metamask.app.link/dapp/${DAPP_URL_PLAIN}`,
+    title: (
+      <div className="text-center">
+        <div className="text-white text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-3">
+          $VMURAD AIRDROP
+        </div>
+        <div className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-400 to-orange-500 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold mb-3">
+          20 MILLION TOKENS!
+        </div>
+        <div className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
+          Celebrate our listing on PancakeSwap and Ethervista!
+        </div>
+      </div>
+    ),
+    description: (
+      <div className="text-white text-base sm:text-lg md:text-xl text-center max-w-4xl mx-auto">
+        <div className="mb-4">
+          We are rewarding our most loyal holders with a massive airdrop of{' '}
+          <span className="font-bold">20 million $VMURAD tokens</span> – that is{' '}
+          <span className="font-bold">2% of total supply!</span>{' '}
+          Hurry up, the clock is ticking!
+        </div>
+        <div className="text-left space-y-2">
+          <div className="font-bold text-xl">Eligibility Rules:</div>
+          <div>1 - Hold at least <span className="font-bold">10 million $VMURAD</span></div>
+          <div>
+            2 - No sale of any $VMURAD token since its first purchase, until{' '}
+            <span className="font-bold">August 12, 2025</span>
+          </div>
+          <div>
+            3 - Be a true <span className="text-yellow-400 font-bold">Diamond Hand</span>
+          </div>
+        </div>
+      </div>
+    ),
+    showCountdown: true,
   },
   {
-    name: 'Trust Wallet',
-    icon: '/logosvg/TrustWallet.avif',
-    deeplink: `https://link.trustwallet.com/open_url?coin_id=60&url=${DAPP_URL_ENCODED}`,
+    title: (
+      <div className="text-center">
+        <div className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold">
+          OFFICIAL CONTEST –
+        </div>
+        <div className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-500 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold">
+          "LET'S PIXELATE EVERYTHING!"
+        </div>
+      </div>
+    ),
+    description: (
+      <div className="text-white text-base sm:text-lg md:text-xl text-center max-w-4xl mx-auto">
+        <div className="mb-4">
+          The $VMURAD community is launching the most creative contest of the season: transform memes and images related to the $VMURAD universe into pixelated versions and compete for{' '}
+          <span className="font-bold text-yellow-400">5 MILLION tokens!</span> Join, invite friends, and show your pixelated vision of the wildest ecosystem on Etherfun.
+        </div>
+        <a
+          href="/contest"
+          className="inline-flex items-center px-6 py-3 mt-4 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold hover:from-pink-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
+        >
+          PARTICIPATION RULES
+        </a>
+      </div>
+    ),
+    showCountdown: false,
   },
   {
-    name: 'Phantom',
-    icon: '/logosvg/Phantom-Icon_Circle.svg',
-    deeplink: `https://phantom.app/ul/browse/${DAPP_URL_ENCODED}`,
-  },
-  {
-    name: 'Binance',
-    icon: '/logosvg/binance-icon-seeklogo.svg',
-    deeplink: `https://www.binance.com/en/dapp/browser?url=${DAPP_URL_ENCODED}`,
-  },
-  {
-    name: 'Coinbase Wallet',
-    icon: '/logosvg/cbw.svg',
-    deeplink: `https://go.cb-w.com/dapp?url=${DAPP_URL_ENCODED}`,
-  },
-  {
-    name: 'OKX Wallet',
-    icon: '/logosvg/okx-seeklogo.svg',
-    deeplink: `okx://wallet/dapp/url?dappUrl=${DAPP_URL_ENCODED}`,
+    title: (
+      <div className="text-center">
+        <div className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3">
+          MEXC DEX+ EXCLUSIVE LAUNCH!
+        </div>
+        <div className="text-green-400 text-2xl sm:text-3xl md:text-4xl font-bold">
+          Do not Miss Out – Limited Time to Buy $VMURAD!
+        </div>
+      </div>
+    ),
+    description: (
+      <div className="text-white text-base sm:text-lg md:text-xl text-center max-w-4xl mx-auto">
+        <div className="mb-4">
+          <span className="text-green-300 font-semibold">The window is closing fast!</span>{' '}
+          $VMURAD is now LIVE on <span className="font-bold text-blue-400">MEXC DEX+</span>. Early buyers are already securing their positions –{' '}
+          <span className="font-bold">do not be left behind</span> when the next wave hits!
+        </div>
+        <div className="mb-4">
+          <span className="text-yellow-300 font-bold">FOMO is real:</span> Every second counts. The earlier you buy, the bigger your potential gains.{' '}
+          <span className="text-pink-400 font-bold">Supplies are limited and demand is skyrocketing!</span>
+        </div>
+        <div className="font-semibold text-purple-300">
+          Be part of the first wave. Buy now and ride the momentum!
+        </div>
+        <a
+          href="https://www.mexc.com/pt-BR/dex/trade?pair_ca=0xc96a13d14c2B2E4D7e13AAAA1DA97b4E659Ebe30&chain_id=56&token_ca=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c&from=search"
+          target="_blank"
+          className="inline-flex items-center px-6 py-3 mt-4 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold hover:from-pink-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
+        >
+          Buy Now on MEXC!
+        </a>
+      </div>
+    ),
+    showCountdown: false,
   },
 ];
 
-// Modal component for mobile wallet selection
-function WalletModalMobile({
-  open,
-  onClose,
-}: {
-  open: boolean;
-  onClose: () => void;
-}) {
-  if (!open) return null;
-
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60"
-      onClick={onClose}
-    >
-      <div
-        className="bg-white rounded-xl p-6 w-full max-w-sm shadow-lg"
-        onClick={e => e.stopPropagation()}
-      >
-        <h2 className="text-lg font-bold mb-4 text-gray-800">Connect with Wallet</h2>
-        <ul className="space-y-3">
-          {WALLETS.map(wallet => (
-            <li key={wallet.name}>
-              <a
-                href={wallet.deeplink}
-                className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-100 transition"
-                style={{ textDecoration: 'none' }}
-              >
-                <img
-                  src={wallet.icon}
-                  alt={wallet.name}
-                  className="w-7 h-7 rounded-full bg-white"
-                />
-                <span className="font-medium text-gray-900">{wallet.name}</span>
-                <span className="ml-2 px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded">
-                  Mobile App
-                </span>
-                <svg
-                  className="ml-auto text-gray-400"
-                  width={18}
-                  height={18}
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M9 18l6-6-6-6" />
-                </svg>
-              </a>
-            </li>
-          ))}
-        </ul>
-        <button
-          className="mt-6 w-full py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-gray-800 font-semibold transition"
-          onClick={onClose}
-        >
-          Cancel
-        </button>
-      </div>
-    </div>
-  );
-}
-
-// Main component for the Buy on Ethervista button and all other action buttons
-export default function BuyOnEthervista() {
-  const isMobile = useIsMobile();
+const Hero: React.FC = () => {
+  // State for the wallet modal visibility
   const [walletModalOpen, setWalletModalOpen] = useState(false);
 
-  const handleBuyOnEthervista = () => {
-    if (!isMobile) {
-      // Desktop: open in new tab
-      window.open(DAPP_URL_PLAIN, '_blank', 'noopener,noreferrer');
-    } else {
-      // Mobile: open the wallet modal
-      setWalletModalOpen(true);
-    }
+  // State for the countdown timer
+  const [timeLeft, setTimeLeft] = useState(getTimeLeft(SNAPSHOT_DATE));
+
+  // Handler for opening the MEXC link in a new tab
+  const openMexcLink = (e?: React.MouseEvent<HTMLButtonElement>) => {
+    if (e) e.preventDefault();
+    window.open(
+      'https://www.mexc.com/pt-BR/dex/trade?pair_ca=0xc96a13d14c2B2E4D7e13AAAA1DA97b4E659Ebe30&chain_id=56&token_ca=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c&from=search',
+      '_blank'
+    );
   };
 
-  function openMexcLink(e?: React.MouseEvent<HTMLButtonElement>) {
-    if (e) e.preventDefault();
-    window.location.href =
-      'https://www.mexc.com/pt-BR/dex/trade?pair_ca=0xc96a13d14c2B2E4D7e13AAAA1DA97b4E659Ebe30&chain_id=56&token_ca=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c&from=search';
-    setTimeout(() => {
-      window.open(
-        'https://www.mexc.com/pt-BR/dex/trade?pair_ca=0xc96a13d14c2B2E4D7e13AAAA1DA97b4E659Ebe30&chain_id=56&token_ca=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c&from=search',
-        '_blank'
-      );
-    }, 1500);
-  }
+  // Update the countdown every second
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeLeft(getTimeLeft(SNAPSHOT_DATE));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-6 sm:gap-6 w-full">
-      <button
-        onClick={openMexcLink}
-        className="px-4 py-2 sm:px-8 sm:py-3 bg-pink-500/40 hover:bg-purple-500/40 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-xs xs:text-sm sm:text-base border border-white/30 hover:border-pink-400/50"
-      >
-        Buy on MEXC!
-      </button>
-      <button
-        onClick={handleBuyOnEthervista}
-        className="px-4 py-2 sm:px-8 sm:py-3 bg-pink-500/40 hover:bg-purple-500/40 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-xs xs:text-sm sm:text-base border border-white/30 hover:border-pink-400/50"
-      >
-        Buy on Ethervista!
-      </button>
-      <a
-        href="https://pancakeswap.finance/swap?outputCurrency=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="px-4 py-2 sm:px-8 sm:py-3 bg-pink-500/40 hover:bg-purple-500/40 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-xs xs:text-sm sm:text-base border border-white/30 hover:border-pink-400/50"
-      >
-        Buy on PancakeSwap!
-      </a>
-      <a
-        href="https://compranopix.com/index.php?acao=buydex&token=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="px-4 py-2 sm:px-8 sm:py-3 bg-pink-500/40 hover:bg-purple-500/40 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-xs xs:text-sm sm:text-base border border-white/30 hover:border-pink-400/50"
-      >
-        Buy with PIX!
-      </a>
-      <a
-        href="https://x.com/vistamurad?t=v1DvOASEPC_9vOzXKN-GGw&s=35"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="px-4 py-2 sm:px-8 sm:py-3 bg-pink-500/40 hover:bg-purple-500/40 text-white font-bold rounded-full transition-all duration-300 border border-white/30 flex items-center justify-center gap-2 text-center text-xs xs:text-sm sm:text-base hover:border-pink-400/50"
-      >
-        Join on X
-      </a>
-      <a
-        href="https://t.me/+lov0IxvuySphMzgx"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="px-4 py-2 sm:px-8 sm:py-3 bg-pink-500/40 hover:bg-purple-500/40 text-white font-bold rounded-full transition-all duration-300 border border-white/30 flex items-center justify-center gap-2 text-center text-xs xs:text-sm sm:text-base hover:border-pink-400/50"
-      >
-        Join Telegram
-      </a>
-      {isMobile && (
-        <WalletModalMobile
-          open={walletModalOpen}
-          onClose={() => setWalletModalOpen(false)}
-        />
-      )}
-    </div>
+    <section className="relative bg-gradient-to-b from-purple-900 to-purple-950 py-16 px-4 sm:px-8 flex flex-col items-center justify-center overflow-hidden">
+      {/* Slides or animated banners at the top of the hero section */}
+      <div className="w-full max-w-6xl mb-8">
+        <HeroSlides slides={slides} timeLeft={timeLeft} />
+      </div>
+
+      {/* Main headline and actions section */}
+      <div className="w-full max-w-3xl text-center mb-8">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight mb-4 drop-shadow-lg">
+          Welcome to the Murad Ecosystem
+        </h1>
+        <p className="text-lg sm:text-xl text-purple-200 mb-6">
+          Explore, trade, and join the most vibrant crypto community. Buy, vote, and participate in the future of decentralized finance!
+        </p>
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+          <BuyOnEthervista />
+        </div>
+      </div>
+
+      {/* Animated logo with floating effect */}
+      <div className="w-full flex justify-center my-8">
+        <div className="w-40 h-40 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 relative animate-float">
+          <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full opacity-20 blur-2xl"></div>
+          <div className="relative w-full h-full flex items-center justify-center">
+            <img
+              src="https://i.ibb.co/qLBs72sk/logoatt.jpg"
+              alt="Logo VISTAMURAD"
+              className="w-36 h-36 xs:w-48 xs:h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 object-contain rounded-full"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Stats or key metrics section below the actions */}
+      <div className="w-full max-w-4xl mb-10">
+        <HeroStats />
+      </div>
+
+      {/* Wallet modal for mobile wallet selection */}
+      <WalletModalMobile open={walletModalOpen} onClose={() => setWalletModalOpen(false)} />
+
+      {/* Decorative or animated background (optional) */}
+      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[120vw] h-[60vh] bg-pink-600 opacity-10 rounded-full blur-3xl" />
+      </div>
+    </section>
   );
-}
+};
+
+export default Hero;

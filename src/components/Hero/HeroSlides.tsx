@@ -1,10 +1,10 @@
+// src/components/Hero/HeroSlides.tsx
+
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 
 type HeroSlidesProps = {
   slides: {
@@ -15,7 +15,8 @@ type HeroSlidesProps = {
   timeLeft: { days: number; hours: number; minutes: number; seconds: number };
 };
 
-export function HeroSlides({ slides, timeLeft }: HeroSlidesProps) {
+// HeroSlides component: displays a carousel of slides with optional countdown
+export const HeroSlides: React.FC<HeroSlidesProps> = ({ slides, timeLeft }) => {
   return (
     <Swiper
       modules={[Autoplay, Pagination]}
@@ -26,15 +27,18 @@ export function HeroSlides({ slides, timeLeft }: HeroSlidesProps) {
     >
       {slides.map((slide, idx) => (
         <SwiperSlide key={idx}>
-          <div>
-            <h1 className="text-xl xs:text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-snug xs:leading-tight mb-2 sm:mb-4 break-words">
+          <div className="px-4 py-6 sm:px-6 sm:py-8">
+            {/* Slide title */}
+            <div className="text-center">
               {slide.title}
-            </h1>
-            <p className="text-sm xs:text-base sm:text-lg md:text-xl text-pink-100 mb-4 sm:mb-8 break-words">
+            </div>
+            {/* Slide description */}
+            <div className="mt-4 text-center px-2 sm:px-4">
               {slide.description}
-            </p>
+            </div>
+            {/* Optional countdown section */}
             {slide.showCountdown && (
-              <div className="text-white font-bold text-base xs:text-lg sm:text-xl mb-5">
+              <div className="text-center text-white font-bold text-base xs:text-lg sm:text-xl mt-6">
                 Countdown to Snapshot:
                 <div className="text-2xl xs:text-3xl mt-2 font-mono tracking-wide">
                   {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
@@ -46,4 +50,6 @@ export function HeroSlides({ slides, timeLeft }: HeroSlidesProps) {
       ))}
     </Swiper>
   );
-}
+};
+
+export default HeroSlides;

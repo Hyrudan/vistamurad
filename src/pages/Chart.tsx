@@ -55,6 +55,9 @@ const ChartContainer = styled.div`
 const DEXSCREENER_URL_BSC_VMURAD =
   "https://dexscreener.com/bsc/0x5a091169C79F4b18d21E4901cD7653Ef9C6c1665?embed=1&loadChartSettings=0&trades=0&tabs=0&info=0&chartDefaultOnMobile=1&chartTheme=dark&theme=dark&chartStyle=1&chartType=usd&interval=15";
 
+const DEXSCREENER_URL_PANCAKE_VMURAD =
+  "https://dexscreener.com/bsc/0xc96a13d14c2B2E4D7e13AAAA1DA97b4E659Ebe30?embed=1&loadChartSettings=0&trades=0&tabs=0&info=0&chartLeftToolbar=0&chartDefaultOnMobile=1&chartTheme=dark&theme=dark&chartStyle=1&chartType=usd&interval=15";
+
 const DEXSCREENER_URL_ETH_VISTA =
   "https://dexscreener.com/ethereum/0xfdd05552F1377aA488AFed744c8024358AF02041?embed=1&loadChartSettings=0&trades=0&tabs=0&info=0&chartLeftToolbar=0&loadChartSettings=0&chartDefaultOnMobile=1&chartTheme=dark&theme=dark&chartStyle=1&chartType=usd&interval=15";
 
@@ -64,9 +67,9 @@ const DEXSCREENER_URL_ETH_BONZI =
 
 const DexScreenerChart = () => (
   <div id="chart" style={{ width: "100%", maxWidth: 1200, margin: "0 auto" }}>
-    {/* first Chart - BSC */}
+    {/* first Chart - Ethervista Pool */}
     <ChartContainer>
-      <ChartTitle>Track $VMURAD LIVE on BSC!</ChartTitle>
+      <ChartTitle>Track $VMURAD LIVE on Ethervista!</ChartTitle>
       <DexScreenerEmbed>
         <iframe
           src={DEXSCREENER_URL_BSC_VMURAD}
@@ -76,10 +79,23 @@ const DexScreenerChart = () => (
         />
       </DexScreenerEmbed>
     </ChartContainer>
-    
-    {/* Second Chart - Ethereum */}
+
+    {/* second Chart - Pancake Pool */}
     <ChartContainer>
-      <ChartTitle>Track $VISTA LIVE on Ethereum!</ChartTitle>
+      <ChartTitle>Track $VMURAD LIVE on PancakeSwap!</ChartTitle>
+      <DexScreenerEmbed>
+        <iframe
+          src={DEXSCREENER_URL_PANCAKE_VMURAD}
+          title="DexScreener BSC Chart VMURAD"
+          allowFullScreen
+          loading="lazy"
+        />
+      </DexScreenerEmbed>
+    </ChartContainer>
+    
+    {/* Third Chart - Ethereum */}
+    <ChartContainer>
+      <ChartTitle>Track $VISTA LIVE on Ethervista!</ChartTitle>
       <DexScreenerEmbed>
         <iframe
           src={DEXSCREENER_URL_ETH_VISTA}
@@ -90,9 +106,9 @@ const DexScreenerChart = () => (
       </DexScreenerEmbed>
     </ChartContainer>
 
-  {/* Third Chart - Ethereum */}
+  {/* Fourth Chart - Ethereum */}
     <ChartContainer>
-      <ChartTitle>Track $BONZI LIVE on Ethereum!</ChartTitle>
+      <ChartTitle>Track $BONZI LIVE on Ethervista!</ChartTitle>
       <DexScreenerEmbed>
         <iframe
           src={DEXSCREENER_URL_ETH_BONZI}

@@ -3,6 +3,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 // Import all your page components
+import Navbar from '../components/Navbar';
 import Hero from '../components/Hero/Hero';
 import ImageCarousel from '../components/ImageCarousel';
 import Tokenomics from '../pages/Tokenomics';
@@ -20,6 +21,7 @@ import Governance from '../pages/Governance';
 // Home page layout with all sections
 const HomePage: React.FC = () => (
   <>
+    <Navbar />
     <Hero />
     <Whitepaper />
     <ImageCarousel />

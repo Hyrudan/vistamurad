@@ -3,29 +3,98 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import CarouselSection from './CarouselSection';
 
-// Dynamically import images for each collection
-const communityImages = Object.values(
-  import.meta.glob('../assets/communityarts/*.{jpg,jpeg,png,webp}', { eager: true })
-).map((mod: any) => mod.default);
+// --- Image arrays for each category, using the public/assets path ---
+// Community Arts Images
+const communityImages = [
+  '/assets/communityarts/1000.jpg',
+  '/assets/communityarts/10000.jpg',
+  '/assets/communityarts/ai.jpg',
+  '/assets/communityarts/airdrop.jpg',
+  '/assets/communityarts/both.jpg',
+  '/assets/communityarts/buybuy.jpg',
+  '/assets/communityarts/caleido.jpg',
+  '/assets/communityarts/cartoon.jpg',
+  '/assets/communityarts/cults.jpg',
+  '/assets/communityarts/dancing.jpg',
+  '/assets/communityarts/didusay.jpg',
+  '/assets/communityarts/etherfun.jpg',
+  '/assets/communityarts/ethervista.jpg',
+  '/assets/communityarts/glory.jpg',
+  '/assets/communityarts/greens.jpg',
+  '/assets/communityarts/happy.jpg',
+  '/assets/communityarts/hero.jpg',
+  '/assets/communityarts/jesus.jpg',
+  '/assets/communityarts/laugh.jpg',
+  '/assets/communityarts/logoatt.jpg',
+  '/assets/communityarts/memecoin.jpg',
+  '/assets/communityarts/mill.jpg',
+  '/assets/communityarts/MMGA.jpg',
+  '/assets/communityarts/mooning.jpg',
+  '/assets/communityarts/muradcartoon.jpg',
+  '/assets/communityarts/partners.jpg',
+  '/assets/communityarts/potential.jpg',
+  '/assets/communityarts/red.jpg',
+  '/assets/communityarts/rocket.jpg',
+  '/assets/communityarts/solana.jpg',
+  '/assets/communityarts/spx.jpg',
+  '/assets/communityarts/spxvista.jpg',
+  '/assets/communityarts/supercycle.jpg',
+  '/assets/communityarts/surprised.jpg',
+  '/assets/communityarts/vistabuy.jpg',
+];
 
-const brazilImages = Object.values(
-  import.meta.glob('../assets/muradinbrazil/*.{jpg,jpeg,png,webp}', { eager: true })
-).map((mod: any) => mod.default);
+// Murad in Brazil Images
+const brazilImages = [
+  '/assets/muradinbrazil/beer.jpg',
+  '/assets/muradinbrazil/beer2.jpg',
+  '/assets/muradinbrazil/campfire.jpg',
+  '/assets/muradinbrazil/carnival.jpg',
+  '/assets/muradinbrazil/etherfun.jpg',
+  '/assets/muradinbrazil/hurry.jpg',
+  '/assets/muradinbrazil/just.jpg',
+  '/assets/muradinbrazil/onbeach.jpg',
+  '/assets/muradinbrazil/pelourinho.jpg',
+  '/assets/muradinbrazil/relaxing.jpg',
+  '/assets/muradinbrazil/samba.jpg',
+  '/assets/muradinbrazil/traffic.jpg',
+  '/assets/muradinbrazil/wc.jpg',
+];
 
-const worldwideImages = Object.values(
-  import.meta.glob('../assets/muradworldwide/*.{jpg,jpeg,png,webp}', { eager: true })
-).map((mod: any) => mod.default);
+// Murad Worldwide Images
+const worldwideImages = [
+  '/assets/muradworldwide/argentina.jpg',
+  '/assets/muradworldwide/australia.jpg',
+  '/assets/muradworldwide/cheryblossom.jpg',
+  '/assets/muradworldwide/china.jpg',
+  '/assets/muradworldwide/china3.jpg',
+  '/assets/muradworldwide/egypt.jpg',
+  '/assets/muradworldwide/france.jpg',
+  '/assets/muradworldwide/ireland.jpg',
+  '/assets/muradworldwide/isle.jpg',
+  '/assets/muradworldwide/italy.jpg',
+  '/assets/muradworldwide/italy2.jpg',
+  '/assets/muradworldwide/japan.jpg',
+  '/assets/muradworldwide/japan2.jpg',
+  '/assets/muradworldwide/machupichu.jpg',
+  '/assets/muradworldwide/nyc.jpg',
+  '/assets/muradworldwide/pharaoh.jpg',
+  '/assets/muradworldwide/russia.jpg',
+  '/assets/muradworldwide/safari.jpg',
+  '/assets/muradworldwide/saudi.jpg',
+];
 
-// Helper for unique image IDs
+// --- Helper for unique image IDs ---
 const createImageId = (category: string, index: number): string => `${category}-${index}`;
 
+// --- Vote data interface ---
 interface VoteData {
   totalVotes: number;
   voters: string[];
 }
 
-// Main container for all carousels and voting state
+// --- Main ImageCarousel Component ---
 const ImageCarousel: React.FC = () => {
+  // State for votes, sorting, login prompt, and loaded images
   const [votes, setVotes] = useState<Record<string, VoteData>>({});
   const [sortByVotes, setSortByVotes] = useState<boolean>(false);
   const [showLoginPrompt, setShowLoginPrompt] = useState<boolean>(false);
@@ -106,11 +175,12 @@ const ImageCarousel: React.FC = () => {
     [currentUser, hasUserVoted]
   );
 
-  // Handle image load
+  // Handle image load event
   const handleImageLoad = useCallback((imageId: string) => {
     setLoadedImages((prev) => new Set(prev).add(imageId));
   }, []);
 
+  // --- Render ---
   return (
     <div className="w-full max-w-4xl mx-auto px-2 sm:px-4 my-8 sm:my-16">
       {/* Login Prompt Modal */}
@@ -174,6 +244,7 @@ const ImageCarousel: React.FC = () => {
         sortByVotes={sortByVotes}
         setSortByVotes={setSortByVotes}
       />
+
       {/* Extra CSS to ensure Swiper pagination bullets are hidden */}
       <style>{`
         .swiper-pagination {

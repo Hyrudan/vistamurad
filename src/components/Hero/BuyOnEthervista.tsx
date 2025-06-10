@@ -134,48 +134,15 @@ export default function BuyOnEthervista() {
     }
   };
 
-  function openMexcLink(e?: React.MouseEvent<HTMLButtonElement>) {
-    if (e) e.preventDefault();
-    window.location.href =
-      'https://www.mexc.com/pt-BR/dex/trade?pair_ca=0xc96a13d14c2B2E4D7e13AAAA1DA97b4E659Ebe30&chain_id=56&token_ca=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c&from=search';
-    setTimeout(() => {
-      window.open(
-        'https://www.mexc.com/pt-BR/dex/trade?pair_ca=0xc96a13d14c2B2E4D7e13AAAA1DA97b4E659Ebe30&chain_id=56&token_ca=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c&from=search',
-        '_blank'
-      );
-    }, 1500);
-  }
-
   return (
+    
     <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-6 sm:gap-6 w-full">
-      <button
-        onClick={openMexcLink}
-        className="px-4 py-2 sm:px-8 sm:py-3 bg-pink-500/40 hover:bg-purple-500/40 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-xs xs:text-sm sm:text-base border border-white/30 hover:border-pink-400/50"
-      >
-        Buy on MEXC!
-      </button>
       <button
         onClick={handleBuyOnEthervista}
         className="px-4 py-2 sm:px-8 sm:py-3 bg-pink-500/40 hover:bg-purple-500/40 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-xs xs:text-sm sm:text-base border border-white/30 hover:border-pink-400/50"
       >
         Buy on Ethervista!
       </button>
-      <a
-        href="https://pancakeswap.finance/swap?outputCurrency=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="px-4 py-2 sm:px-8 sm:py-3 bg-pink-500/40 hover:bg-purple-500/40 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-xs xs:text-sm sm:text-base border border-white/30 hover:border-pink-400/50"
-      >
-        Buy on PancakeSwap!
-      </a>
-      <a
-        href="https://compranopix.com/index.php?acao=buydex&token=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="px-4 py-2 sm:px-8 sm:py-3 bg-pink-500/40 hover:bg-purple-500/40 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-xs xs:text-sm sm:text-base border border-white/30 hover:border-pink-400/50"
-      >
-        Buy with PIX!
-      </a>
       <a
         href="https://x.com/vistamurad?t=v1DvOASEPC_9vOzXKN-GGw&s=35"
         target="_blank"

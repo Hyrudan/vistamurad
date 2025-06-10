@@ -88,42 +88,6 @@ const slides = [
     ),
     showCountdown: false,
   },
-  {
-    title: (
-      <div className="text-center">
-        <div className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3">
-          MEXC DEX+ EXCLUSIVE LAUNCH!
-        </div>
-        <div className="text-green-400 text-2xl sm:text-3xl md:text-4xl font-bold">
-          Do not Miss Out – Limited Time to Buy $VMURAD!
-        </div>
-      </div>
-    ),
-    description: (
-      <div className="text-white text-base sm:text-lg md:text-xl text-center max-w-4xl mx-auto">
-        <div className="mb-4">
-          <span className="text-green-300 font-semibold">The window is closing fast!</span>{' '}
-          $VMURAD is now LIVE on <span className="font-bold text-blue-400">MEXC DEX+</span>. Early buyers are already securing their positions –{' '}
-          <span className="font-bold">do not be left behind</span> when the next wave hits!
-        </div>
-        <div className="mb-4">
-          <span className="text-yellow-300 font-bold">FOMO is real:</span> Every second counts. The earlier you buy, the bigger your potential gains.{' '}
-          <span className="text-pink-400 font-bold">Supplies are limited and demand is skyrocketing!</span>
-        </div>
-        <div className="font-semibold text-purple-300">
-          Be part of the first wave. Buy now and ride the momentum!
-        </div>
-        <a
-          href="https://www.mexc.com/pt-BR/dex/trade?pair_ca=0xc96a13d14c2B2E4D7e13AAAA1DA97b4E659Ebe30&chain_id=56&token_ca=0x52bf2b94Ab3c33867c4CA5849E529290baaf692c&from=search"
-          target="_blank"
-          className="inline-flex items-center px-6 py-3 mt-4 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold hover:from-pink-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
-        >
-          Buy Now on MEXC!
-        </a>
-      </div>
-    ),
-    showCountdown: false,
-  },
 ];
 
 const Hero: React.FC = () => {

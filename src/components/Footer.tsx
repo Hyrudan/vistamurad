@@ -119,11 +119,18 @@ const Footer: React.FC = () => {
                 { href: "#faq", label: "FAQ" },
                 { href: "#roadmap", label: "Roadmap" },
                 { href: "#whitepaper", label: "Whitepaper" },
+                { href: "/meme-generator", label: "Meme Generator", isRoute: true },
               ].map(link => (
                 <li key={link.href}>
-                  <a href={link.href} className="text-pink-100 hover:text-pink-300 transition-colors text-sm sm:text-base">
-                    {link.label}
-                  </a>
+                  {link.isRoute ? (
+                    <Link to={link.href} className="text-pink-100 hover:text-pink-300 transition-colors text-sm sm:text-base">
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a href={link.href} className="text-pink-100 hover:text-pink-300 transition-colors text-sm sm:text-base">
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

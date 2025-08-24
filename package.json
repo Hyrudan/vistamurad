@@ -11,6 +11,9 @@
     "copy-files": "cp -R node_modules/charting_library/ public"
   },
   "dependencies": {
+    "axios": "^1.11.0",
+    "fabric": "^6.7.1",
+    "html2canvas": "^1.4.1",
     "lightweight-charts": "^4.2.3",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",

@@ -1,6 +1,7 @@
 // src/components/Hero/Hero.tsx
 
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import BuyOnEthervista from './BuyOnEthervista';
 import HeroSlides from './HeroSlides';
 import HeroStats from './HeroStats';
@@ -131,6 +132,12 @@ const Hero: React.FC = () => {
         </p>
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
           <BuyOnEthervista />
+          <Link
+            to="/meme-generator"
+            className="px-4 py-2 sm:px-8 sm:py-3 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-xs xs:text-sm sm:text-base border border-white/30 hover:border-green-400/50"
+          >
+            Create Memes
+          </Link>
         </div>
       </div>
 

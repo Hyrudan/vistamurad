@@ -80,10 +80,11 @@ const Navbar: React.FC = () => {
     { name: 'Roadmap', href: '#roadmap' },
     { name: 'Community', href: '#community' },
     { name: 'FAQ', href: '#faq' },
+    { name: 'Meme Generator', href: '/meme-generator', isRoute: true },
   ];
 
   const handleNavClick = (href: string) => {
-    if (['/terms', '/privacy'].includes(location.pathname)) {
+    if (['/terms', '/privacy', '/meme-generator'].includes(location.pathname)) {
       navigate('/');
       setTimeout(() => {
         const id = href.replace('#', '');
@@ -171,7 +172,16 @@ const Navbar: React.FC = () => {
               </div>
               {/* Nav Links */}
               {navLinks.map((link) => (
-                <a
+                {link.isRoute ? (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className="text-white hover:text-pink-300 font-medium transition-colors text-base"
+                  >
+                    {link.name}
+                  </Link>
+                ) : (
+                  <a
                   key={link.name}
                   href={link.href}
                   className="text-white hover:text-pink-300 font-medium transition-colors text-base"
@@ -182,6 +192,7 @@ const Navbar: React.FC = () => {
                 >
                   {link.name}
                 </a>
+                )}
               ))}
               {/* Login/Logout */}
               {isLoggedIn ? (
@@ -280,7 +291,17 @@ const Navbar: React.FC = () => {
               </div>
               {/* Nav Links */}
               {navLinks.map((link) => (
-                <a
+                {link.isRoute ? (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className="px-3 py-2 rounded-lg text-white hover:text-pink-300 font-medium text-base transition-colors"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                ) : (
+                  <a
                   key={link.name}
                   href={link.href}
                   className="px-3 py-2 rounded-lg text-white hover:text-pink-300 font-medium text-base transition-colors"
@@ -292,6 +313,7 @@ const Navbar: React.FC = () => {
                 >
                   {link.name}
                 </a>
+                )}
               ))}
               {/* Buy Now */}
               <a

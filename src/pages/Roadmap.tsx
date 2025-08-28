@@ -36,10 +36,10 @@ const roadmap: Milestone[] = [
     description: "Establish liquidity pools on major decentralized exchanges.",
   },
   {
-    title: "Marketing Campaigns #1",
+    title: "First Listing",
     date: "June 2025",
-    completed: false,
-    description: "Begin influencer partnerships and social media marketing.",
+    completed: true,
+    description: "Maded our very first listing on CEX",
   },
   {
     title: "First Meme Contest",

@@ -80,7 +80,7 @@ const Navbar: React.FC = () => {
     { name: 'Roadmap', href: '#roadmap' },
     { name: 'Community', href: '#community' },
     { name: 'FAQ', href: '#faq' },
-    { name: 'Meme Generator', href: '/meme-generator', isRoute: true },
+    { name: 'Coming Soon', href: '', isRoute: true },
   ];
 
   const handleNavClick = (href: string) => {

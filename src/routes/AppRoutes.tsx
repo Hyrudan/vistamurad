@@ -17,7 +17,6 @@ import TermsAndConditionsPage from '../pages/Terms';
 import PrivacyPolicyPage from '../pages/Privacy';
 import Contest from '../pages/Contest';
 import Governance from '../pages/Governance';
-import MemeGeneratorPage from '../pages/MemeGeneratorPage';
 
 // Home page layout with all sections
 const HomePage: React.FC = () => (
@@ -43,7 +42,6 @@ const AppRoutes: React.FC = () => (
     <Route path="/privacy" element={<PrivacyPolicyPage />} />
     <Route path="/contest" element={<Contest />} />
     <Route path="/governance" element={<Governance />} />
-    <Route path="/meme-generator" element={<MemeGeneratorPage />} />
     {/* Add other routes if needed */}
   </Routes>
 );

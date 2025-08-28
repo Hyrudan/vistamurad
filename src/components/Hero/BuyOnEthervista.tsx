@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 // Hook to detect if the device is mobile based on window width
 function useIsMobile(breakpoint: number = 768): boolean {

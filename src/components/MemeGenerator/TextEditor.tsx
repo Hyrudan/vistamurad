@@ -1,5 +1,5 @@
 import React from 'react';
-import { Type, Bold, Italic, Palette, Trash2 } from 'lucide-react';
+import { Type, Bold, Italic, Trash2 } from 'lucide-react';
 
 interface TextBox {
   id: string;

@@ -1,11 +1,10 @@
+// MemeGenerator.tsx
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import * as fabric from 'fabric';
-import html2canvas from 'html2canvas';
+import  * as fabric from 'fabric';
 import { 
   Upload, 
   Download, 
   Type, 
-  Palette, 
   Sliders, 
   Sparkles,
   Plus,
@@ -58,7 +57,6 @@ const MemeGenerator: React.FC = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  // Initialize Fabric.js canvas
   useEffect(() => {
     if (canvasRef.current && !fabricCanvasRef.current) {
       const canvas = new fabric.Canvas(canvasRef.current, {
@@ -66,14 +64,12 @@ const MemeGenerator: React.FC = () => {
         height: 600,
         backgroundColor: '#f0f0f0'
       });
-      
       fabricCanvasRef.current = canvas;
 
-      // Handle text selection
-      canvas.on('selection:created', (e) => {
+      canvas.on('selection:created', (e: any) => {
         const activeObject = e.selected?.[0];
         if (activeObject && activeObject.type === 'textbox') {
-          setSelectedTextBox(activeObject.id || '');
+          setSelectedTextBox(activeObject.get('id') || null);
         }
       });
 
@@ -88,69 +84,59 @@ const MemeGenerator: React.FC = () => {
     }
   }, []);
 
-  // Update canvas size based on image
-  const updateCanvasSize = useCallback((img: HTMLImageElement) => {
-    if (!fabricCanvasRef.current) return;
-
-    const maxWidth = 800;
-    const maxHeight = 600;
-    const aspectRatio = img.width / img.height;
-
-    let newWidth = img.width;
-    let newHeight = img.height;
-
-    if (newWidth > maxWidth) {
-      newWidth = maxWidth;
-      newHeight = newWidth / aspectRatio;
-    }
-
-    if (newHeight > maxHeight) {
-      newHeight = maxHeight;
-      newWidth = newHeight * aspectRatio;
-    }
-
-    fabricCanvasRef.current.setDimensions({
-      width: newWidth,
-      height: newHeight
-    });
-  }, []);
-
-  // Load image onto canvas
+  // Corrigido: nova função para carregar imagem sem uso de fromURL que dá conflito TS
   const loadImageToCanvas = useCallback((imageSrc: string) => {
     if (!fabricCanvasRef.current) return;
 
-    fabric.Image.fromURL(imageSrc, (img) => {
-      if (!fabricCanvasRef.current) return;
+    const imgElement = new Image();
+    imgElement.crossOrigin = 'anonymous';
+    imgElement.src = imageSrc;
 
-      fabricCanvasRef.current.clear();
-      
-      const htmlImg = new Image();
-      htmlImg.onload = () => {
-        updateCanvasSize(htmlImg);
-        
-        img.set({
-          left: 0,
-          top: 0,
-          selectable: false,
-          evented: false
-        });
+    imgElement.onload = () => {
+      const fabricImage = new fabric.Image(imgElement, {
+        selectable: false,
+        evented: false,
+        left: 0,
+        top: 0,
+      });
 
-        img.scaleToWidth(fabricCanvasRef.current!.getWidth());
-        fabricCanvasRef.current!.add(img);
-        fabricCanvasRef.current!.sendToBack(img);
-        fabricCanvasRef.current!.renderAll();
-      };
-      htmlImg.src = imageSrc;
-    });
-  }, [updateCanvasSize]);
+      fabricCanvasRef.current!.clear();
 
-  // Handle image selection
+      const maxWidth = 800;
+      const maxHeight = 600;
+      let width = imgElement.width;
+      let height = imgElement.height;
+      const aspectRatio = width / height;
+
+      if (width > maxWidth) {
+        width = maxWidth;
+        height = width / aspectRatio;
+      }
+      if (height > maxHeight) {
+        height = maxHeight;
+        width = height * aspectRatio;
+      }
+
+      fabricCanvasRef.current!.setWidth(width);
+      fabricCanvasRef.current!.setHeight(height);
+
+      fabricImage.scaleToWidth(width);
+
+      fabricCanvasRef.current!.add(fabricImage);
+
+      // Evitar erro TS com cast any e 3o argumento true
+      fabricCanvasRef.current!.remove(fabricImage);
+      fabricCanvasRef.current!.insertAt(fabricImage as any);
+
+      fabricCanvasRef.current!.renderAll();
+    };
+  }, []);
+
   const handleImageSelect = useCallback((imageSrc: string) => {
     setSelectedImage(imageSrc);
     loadImageToCanvas(imageSrc);
   }, [loadImageToCanvas]);
 
-  // Add new text box
   const addTextBox = useCallback(() => {
     if (!fabricCanvasRef.current) return;
 
@@ -180,13 +166,9 @@ const MemeGenerator: React.FC = () => {
       strokeWidth: newTextBox.strokeWidth,
       textAlign: 'center',
       width: 200,
-      id: newTextBox.id,
-      cornerColor: 'blue',
-      cornerSize: 10,
-      transparentCorners: false
     });
+    fabricText.set('id', newTextBox.id);
 
-    // Add event listeners for position updates
     fabricText.on('moving', () => {
       setTextBoxes(prev => prev.map(tb => 
         tb.id === newTextBox.id 
@@ -203,7 +185,6 @@ const MemeGenerator: React.FC = () => {
     setSelectedTextBox(newTextBox.id);
   }, []);
 
-  // Update text box
   const updateTextBox = useCallback((id: string, updates: Partial<TextBox>) => {
     if (!fabricCanvasRef.current) return;
 
@@ -211,18 +192,17 @@ const MemeGenerator: React.FC = () => {
       tb.id === id ? { ...tb, ...updates } : tb
     ));
 
-    const fabricObject = fabricCanvasRef.current.getObjects().find(obj => obj.id === id);
+    const fabricObject = fabricCanvasRef.current.getObjects().find(obj => obj.get('id') === id);
     if (fabricObject && fabricObject.type === 'textbox') {
       fabricObject.set(updates);
       fabricCanvasRef.current.renderAll();
     }
   }, []);
 
-  // Delete text box
   const deleteTextBox = useCallback((id: string) => {
     if (!fabricCanvasRef.current) return;
 
-    const fabricObject = fabricCanvasRef.current.getObjects().find(obj => obj.id === id);
+    const fabricObject = fabricCanvasRef.current.getObjects().find(obj => obj.get('id') === id);
     if (fabricObject) {
       fabricCanvasRef.current.remove(fabricObject);
       fabricCanvasRef.current.renderAll();
@@ -232,30 +212,24 @@ const MemeGenerator: React.FC = () => {
     setSelectedTextBox(null);
   }, []);
 
-  // Apply filters to background image
   const applyFilters = useCallback(() => {
     if (!fabricCanvasRef.current) return;
 
-    const backgroundImage = fabricCanvasRef.current.getObjects().find(obj => obj.type === 'image');
-    if (backgroundImage && backgroundImage.type === 'image') {
-      // Apply CSS filters to the canvas element instead
-      const canvasElement = fabricCanvasRef.current.getElement();
-      if (canvasElement) {
-        const filterString = `
-          brightness(${imageFilters.brightness}%)
-          contrast(${imageFilters.contrast}%)
-          saturate(${imageFilters.saturation}%)
-          blur(${imageFilters.blur}px)
-          sepia(${imageFilters.sepia}%)
-          grayscale(${imageFilters.grayscale}%)
-        `;
-        canvasElement.style.filter = filterString;
-      }
-      fabricCanvasRef.current.renderAll();
+    const canvasElement = fabricCanvasRef.current.lowerCanvasEl;
+    if (canvasElement) {
+      const filterString = [
+        `brightness(${imageFilters.brightness}%)`,
+        `contrast(${imageFilters.contrast}%)`,
+        `saturate(${imageFilters.saturation}%)`,
+        `blur(${imageFilters.blur}px)`,
+        `sepia(${imageFilters.sepia}%)`,
+        `grayscale(${imageFilters.grayscale}%)`
+      ].join(' ');
+      canvasElement.style.filter = filterString;
     }
+    fabricCanvasRef.current.renderAll();
   }, [imageFilters]);
 
-  // Download meme
   const downloadMeme = useCallback(async () => {
     if (!fabricCanvasRef.current) return;
 
@@ -280,18 +254,16 @@ const MemeGenerator: React.FC = () => {
     }
   }, []);
 
-  // Reset canvas
   const resetCanvas = useCallback(() => {
     if (!fabricCanvasRef.current) return;
-    
+
     fabricCanvasRef.current.clear();
-    
-    // Reset canvas filters
-    const canvasElement = fabricCanvasRef.current.getElement();
+
+    const canvasElement = fabricCanvasRef.current.lowerCanvasEl;
     if (canvasElement) {
       canvasElement.style.filter = 'none';
     }
-    
+
     setTextBoxes([]);
     setSelectedTextBox(null);
     setSelectedImage(null);
@@ -315,9 +287,7 @@ const MemeGenerator: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Left Panel - Tools */}
         <div className="lg:col-span-1 space-y-4">
-          {/* Image Upload */}
           <div className="bg-gray-50 rounded-lg p-4">
             <h3 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
               <Upload size={18} />
@@ -326,7 +296,6 @@ const MemeGenerator: React.FC = () => {
             <ImageUploader onImageSelect={handleImageSelect} />
           </div>
 
-          {/* Tool Buttons */}
           <div className="bg-gray-50 rounded-lg p-4">
             <h3 className="font-semibold text-gray-800 mb-3">Tools</h3>
             <div className="grid grid-cols-2 gap-2">
@@ -338,7 +307,6 @@ const MemeGenerator: React.FC = () => {
                 <Plus size={16} />
                 Add Text
               </button>
-              
               <button
                 onClick={() => setActivePanel(activePanel === 'text' ? null : 'text')}
                 className={`flex items-center justify-center gap-2 px-3 py-2 rounded-md transition-colors text-sm ${
@@ -351,7 +319,6 @@ const MemeGenerator: React.FC = () => {
                 <Type size={16} />
                 Text
               </button>
-
               <button
                 onClick={() => setActivePanel(activePanel === 'filters' ? null : 'filters')}
                 className={`flex items-center justify-center gap-2 px-3 py-2 rounded-md transition-colors text-sm ${
@@ -364,7 +331,6 @@ const MemeGenerator: React.FC = () => {
                 <Sliders size={16} />
                 Filters
               </button>
-
               <button
                 onClick={() => setActivePanel(activePanel === 'ai' ? null : 'ai')}
                 className={`flex items-center justify-center gap-2 px-3 py-2 rounded-md transition-colors text-sm ${
@@ -388,7 +354,6 @@ const MemeGenerator: React.FC = () => {
                 <Download size={16} />
                 {isLoading ? 'Downloading...' : 'Download Meme'}
               </button>
-
               <button
                 onClick={resetCanvas}
                 className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
@@ -399,7 +364,6 @@ const MemeGenerator: React.FC = () => {
             </div>
           </div>
 
-          {/* Active Panel */}
           {activePanel === 'text' && selectedTextBoxData && (
             <TextEditor
               textBox={selectedTextBoxData}
@@ -407,7 +371,6 @@ const MemeGenerator: React.FC = () => {
               onDelete={() => deleteTextBox(selectedTextBoxData.id)}
             />
           )}
-
           {activePanel === 'filters' && (
             <FilterPanel
               filters={imageFilters}
@@ -415,7 +378,6 @@ const MemeGenerator: React.FC = () => {
               onApply={applyFilters}
             />
           )}
-
           {activePanel === 'ai' && (
             <AITextGenerator
               onTextGenerated={(text) => {
@@ -423,12 +385,9 @@ const MemeGenerator: React.FC = () => {
                   updateTextBox(selectedTextBox, { text });
                 } else {
                   addTextBox();
-                  // Wait for the text box to be created, then update it
                   setTimeout(() => {
-                    const latestTextBox = textBoxes[textBoxes.length - 1];
-                    if (latestTextBox) {
-                      updateTextBox(latestTextBox.id, { text });
-                    }
+                    const latest = textBoxes[textBoxes.length - 1];
+                    if (latest) updateTextBox(latest.id, { text });
                   }, 100);
                 }
               }}
@@ -436,16 +395,10 @@ const MemeGenerator: React.FC = () => {
           )}
         </div>
 
-        {/* Main Canvas Area */}
         <div className="lg:col-span-3">
           <div className="bg-gray-100 rounded-lg p-4 min-h-[600px] flex items-center justify-center">
             {selectedImage ? (
-              <div className="relative">
-                <canvas
-                  ref={canvasRef}
-                  className="border border-gray-300 rounded-lg shadow-md max-w-full h-auto"
-                />
-              </div>
+              <canvas ref={canvasRef} className="border border-gray-300 rounded-lg shadow-md max-w-full h-auto" />
             ) : (
               <div className="text-center text-gray-500">
                 <Upload size={64} className="mx-auto mb-4 opacity-50" />
@@ -455,7 +408,6 @@ const MemeGenerator: React.FC = () => {
             )}
           </div>
 
-          {/* Text Boxes List */}
           {textBoxes.length > 0 && (
             <div className="mt-4 bg-gray-50 rounded-lg p-4">
               <h3 className="font-semibold text-gray-800 mb-3">Text Boxes</h3>
@@ -472,9 +424,7 @@ const MemeGenerator: React.FC = () => {
                   >
                     <div className="flex items-center gap-2">
                       <Move size={16} className="text-gray-400" />
-                      <span className="text-sm font-medium truncate max-w-[200px]">
-                        {textBox.text || 'Empty text'}
-                      </span>
+                      <span className="text-sm font-medium truncate max-w-[200px]">{textBox.text || 'Empty text'}</span>
                     </div>
                     <button
                       onClick={(e) => {

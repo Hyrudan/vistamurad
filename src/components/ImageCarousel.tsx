@@ -83,9 +83,6 @@ const worldwideImages = [
   '/assets/muradworldwide/saudi.jpg',
 ];
 
-// --- Helper for unique image IDs ---
-const createImageId = (category: string, index: number): string => `${category}-${index}`;
-
 // --- Vote data interface ---
 interface VoteData {
   totalVotes: number;

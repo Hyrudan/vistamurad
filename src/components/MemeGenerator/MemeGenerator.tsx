@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { fabric } from 'fabric';
+import * as fabric from 'fabric';
 import html2canvas from 'html2canvas';
 import { 
   Upload, 

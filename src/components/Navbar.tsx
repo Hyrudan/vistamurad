@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, Copy, User, LogOut } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import Logo from './Logo';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 
 const CONTRACT_ADDRESS = '0x52bf2b94Ab3c33867c4CA5849E529290baaf692c';
 
@@ -172,7 +172,7 @@ const Navbar: React.FC = () => {
               </div>
               {/* Nav Links */}
               {navLinks.map((link) => (
-                {link.isRoute ? (
+                link.isRoute ? (
                   <Link
                     key={link.name}
                     to={link.href}
@@ -182,17 +182,17 @@ const Navbar: React.FC = () => {
                   </Link>
                 ) : (
                   <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-white hover:text-pink-300 font-medium transition-colors text-base"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(link.href);
-                  }}
-                >
-                  {link.name}
-                </a>
-                )}
+                    key={link.name}
+                    href={link.href}
+                    className="text-white hover:text-pink-300 font-medium transition-colors text-base"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(link.href);
+                    }}
+                  >
+                    {link.name}
+                  </a>
+                )
               ))}
               {/* Login/Logout */}
               {isLoggedIn ? (
@@ -291,7 +291,7 @@ const Navbar: React.FC = () => {
               </div>
               {/* Nav Links */}
               {navLinks.map((link) => (
-                {link.isRoute ? (
+                link.isRoute ? (
                   <Link
                     key={link.name}
                     to={link.href}
@@ -302,18 +302,18 @@ const Navbar: React.FC = () => {
                   </Link>
                 ) : (
                   <a
-                  key={link.name}
-                  href={link.href}
-                  className="px-3 py-2 rounded-lg text-white hover:text-pink-300 font-medium text-base transition-colors"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setIsOpen(false);
-                    handleNavClick(link.href);
-                  }}
-                >
-                  {link.name}
-                </a>
-                )}
+                    key={link.name}
+                    href={link.href}
+                    className="px-3 py-2 rounded-lg text-white hover:text-pink-300 font-medium text-base transition-colors"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsOpen(false);
+                      handleNavClick(link.href);
+                    }}
+                  >
+                    {link.name}
+                  </a>
+                )
               ))}
               {/* Buy Now */}
               <a

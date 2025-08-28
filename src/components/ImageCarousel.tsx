@@ -67,7 +67,7 @@ const worldwideImages = [
   '/assets/muradworldwide/cheryblossom.jpg',
   '/assets/muradworldwide/china.jpg',
   '/assets/muradworldwide/china3.jpg',
-  '/assets/muradworldwide/egypt.jpg',
+  '/assets/muradworldwide/egypth.jpg',
   '/assets/muradworldwide/france.jpg',
   '/assets/muradworldwide/ireland.jpg',
   '/assets/muradworldwide/isle.jpg',

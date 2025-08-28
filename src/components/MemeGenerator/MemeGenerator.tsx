@@ -180,7 +180,19 @@ const MemeGenerator: React.FC = () => {
       strokeWidth: newTextBox.strokeWidth,
       textAlign: 'center',
       width: 200,
-      id: newTextBox.id
+      id: newTextBox.id,
+      cornerColor: 'blue',
+      cornerSize: 10,
+      transparentCorners: false
+    });
+
+    // Add event listeners for position updates
+    fabricText.on('moving', () => {
+      setTextBoxes(prev => prev.map(tb => 
+        tb.id === newTextBox.id 
+          ? { ...tb, x: fabricText.left || 0, y: fabricText.top || 0 }
+          : tb
+      ));
     });
 
     fabricCanvasRef.current.add(fabricText);
@@ -225,18 +237,20 @@ const MemeGenerator: React.FC = () => {
     if (!fabricCanvasRef.current) return;
 
     const backgroundImage = fabricCanvasRef.current.getObjects().find(obj => obj.type === 'image');
-    if (backgroundImage) {
-      const filterString = `
-        brightness(${imageFilters.brightness}%)
-        contrast(${imageFilters.contrast}%)
-        saturate(${imageFilters.saturation}%)
-        blur(${imageFilters.blur}px)
-        sepia(${imageFilters.sepia}%)
-        grayscale(${imageFilters.grayscale}%)
-      `;
-      
-      (backgroundImage as any).filters = [];
-      (backgroundImage as any).applyFilters();
+    if (backgroundImage && backgroundImage.type === 'image') {
+      // Apply CSS filters to the canvas element instead
+      const canvasElement = fabricCanvasRef.current.getElement();
+      if (canvasElement) {
+        const filterString = `
+          brightness(${imageFilters.brightness}%)
+          contrast(${imageFilters.contrast}%)
+          saturate(${imageFilters.saturation}%)
+          blur(${imageFilters.blur}px)
+          sepia(${imageFilters.sepia}%)
+          grayscale(${imageFilters.grayscale}%)
+        `;
+        canvasElement.style.filter = filterString;
+      }
       fabricCanvasRef.current.renderAll();
     }
   }, [imageFilters]);
@@ -271,6 +285,13 @@ const MemeGenerator: React.FC = () => {
     if (!fabricCanvasRef.current) return;
     
     fabricCanvasRef.current.clear();
+    
+    // Reset canvas filters
+    const canvasElement = fabricCanvasRef.current.getElement();
+    if (canvasElement) {
+      canvasElement.style.filter = 'none';
+    }
+    
     setTextBoxes([]);
     setSelectedTextBox(null);
     setSelectedImage(null);

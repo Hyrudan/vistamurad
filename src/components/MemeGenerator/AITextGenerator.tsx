@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Sparkles, Wand2, RefreshCw } from 'lucide-react';
-import axios from 'axios';
 
 interface AITextGeneratorProps {
   onTextGenerated: (text: string) => void;
